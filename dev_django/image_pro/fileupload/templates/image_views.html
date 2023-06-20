@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h1>결과 출력</h1>
+<img src="{{ file }}" width="600">
+
+<p> 예측된 결과: {{ result }} </p>
+<p>모델 실행 시간:  {{ time }} </p>
+{% endblock%}
