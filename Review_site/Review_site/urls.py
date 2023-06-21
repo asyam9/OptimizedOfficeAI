@@ -22,7 +22,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('upload/', include('upload.urls'))
+    path('reviews/', include('Reviews.urls'))
 ]
 
 # media 파일 요청을 처리하는 방법을 명시(2)
