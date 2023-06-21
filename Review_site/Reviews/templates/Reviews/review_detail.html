@@ -1,0 +1,41 @@
+{% extends "Reviews/base_with_nav.html" %}
+
+{% load static %}
+
+{% block title %}{{ review.title }} | Ol'reviews{% endblock title %}
+
+{% block content %}
+<main class="site-body">
+  <article class="review-detail max-content-width">
+
+    <div class="review-info">
+      <h1 class="title">{{ review.title }}</h1>
+
+      {% comment %} <div class="author">
+        <a class="review-author" href="#">
+          <span>유저1</span>
+        </a>
+      </div> {% endcomment %}
+
+      <date class="date">{{ review.dt_created }}</date>
+
+      <div class="review-rating">
+            <span class="cp-stars">{{ review.get_ratings_display }}</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <img class="thumb" src={{ review.imgfile.url }}>
+      <p class="content">{{ review.content }}</p>
+    </div>
+
+    {% comment %} <div class="footer">
+      <a class="back-link" href="#">&lt; 목록으로</a>
+      <div class="buttons">
+        <a class="cp-button warn" href="#">삭제</a>
+        <a class="cp-button secondary" href="#">수정</a>
+      </div>
+    </div> {% endcomment %}
+  </article>
+</main>
+{% endblock content %}
