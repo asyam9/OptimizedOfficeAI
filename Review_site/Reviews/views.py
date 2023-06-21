@@ -50,4 +50,5 @@ def upload(request):
         return render(request, 'Reviews/review_upload.html', context)
     
 def detail(request, post_id):
-    return HttpResponse("상세보기 페이지" + str(post_id))
+    review = Review_Models.objects.get(id=post_id)
+    return render(request, 'Reviews/review_detail.html', {'review':review})

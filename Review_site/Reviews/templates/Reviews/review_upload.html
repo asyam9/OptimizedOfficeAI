@@ -1,20 +1,38 @@
 {% extends "Reviews/base_with_nav.html" %}
-{% comment %} {% widget_tweaks %} {% endcomment %}
+{% load widget_tweaks %}
 
 {% block content %}
-<div class="container">
+<div class="container" style='width: 40%; margin-top:100px'>
     <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
         {% csrf_token %}
+
         <!--폼 필드에 맞는 폼을 자동으로 생성해줌-->
-        {{ fileuploadForm.as_ul }} 
-        <input type="submit" value="제출">
+        <div class="form-floating mb-3">
+            {{ fileuploadForm.title|add_class:"form-control"|attr:"id:floatingInput"|attr:"placeholder:name@example.com" }} 
+            <label for="id_title">제목</label>
+        </div>
+    
+        <div class="form-floating" style="margin-bottom: 16px">
+            {{ fileuploadForm.ratings|add_class:"form-select"|attr:"id:floatingSelect"|attr:"aria-label:Floating label select example" }} 
+            <label for="id_ratings">별점</label>
+            </div>
+    
+        <div class="form-floating" style="margin-bottom: 16px">
+            {{ fileuploadForm.content|add_class:"form-control"|attr:"id:floatingTextarea2"|attr:"placeholder:Leave a comment here"|attr:"style:height: 150px" }} 
+            <label for="id_content">내용</label>
+        </div>
+    
+        <div class="mb-3" style="margin-bottom: 16px">
+            {{ fileuploadForm.imgfile|add_class:"form-control"|attr:"id:formFile" }}
+            {% comment %} <input class="form-control" type="file" id="formFile"> {% endcomment %}
+        </div>
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+            <button type="submit" class="btn btn-outline-success">제출</button>
+        </div>
+
+        {% comment %} <input type="submit" value="제출"> {% endcomment %}
     </form>
 </div>
 
-<div class="mb-3 row" style="width: 50%">
-    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-    <div class="col-sm-10">
-        <input type="password" class="form-control" id="inputPassword">
-    </div>
-</div>
 {% endblock content %}
