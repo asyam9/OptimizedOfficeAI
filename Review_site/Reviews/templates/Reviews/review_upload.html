@@ -1,0 +1,20 @@
+{% extends "Reviews/base_with_nav.html" %}
+{% comment %} {% widget_tweaks %} {% endcomment %}
+
+{% block content %}
+<div class="container">
+    <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <!--폼 필드에 맞는 폼을 자동으로 생성해줌-->
+        {{ fileuploadForm.as_ul }} 
+        <input type="submit" value="제출">
+    </form>
+</div>
+
+<div class="mb-3 row" style="width: 50%">
+    <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+    <div class="col-sm-10">
+        <input type="password" class="form-control" id="inputPassword">
+    </div>
+</div>
+{% endblock content %}
