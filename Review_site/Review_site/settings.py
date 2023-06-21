@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'Reviews'
+    'bootstrap4',
+    'Reviews',
 ]
 
 MIDDLEWARE = [
@@ -117,7 +118,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # 미디어 파일 경로 설정(1)
 MEDIA_URL = '/media/' # 미디어 파일을 접근할 때 사용하는 url -> /MEDIA_URL/review_images/image_name
