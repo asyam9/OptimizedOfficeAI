@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic import ListView
+from django.views.decorators.csrf import csrf_exempt
 from Reviews.models import Review_Models
 from .forms import FileUploadForm
 
@@ -11,42 +12,27 @@ from ultralytics import YOLO
 import time
 import simplejson as json
 
-class IndexView(ListView):
-    """리뷰 조회 페이지"""
-    model = Review_Models
-    template_name = 'Reviews/index.html'
-    context_object_name = 'reviews'
-    paginate_by = 4 # 한 페이지에 표현할 개수
-    ordering = ['-dt_created'] # 순서(- 내림차순)
+# 리뷰 조회 페이지 로직
+def index(request):
+        # 데이터 전체 불러오기
+        reviews = Review_Models.objects.all()
 
-    def index(self, request):
-        reviews = self.model.objects.all()
-        return render(request, self.template_name, {'reviews':reviews})
+        return render(request, 'Reviews/index.html', {'reviews':reviews})
 
 # 리뷰 작성 페이지 로직
+@csrf_exempt
 def upload(request):
     ### 사용자가 폼을 통해 입력을 했을 경우, 
     if request.method == 'POST':
+        # 입력된 내용들을 form이라는 변수에 저장
+        form = FileUploadForm(request.POST, request.FILES)
 
-        # 입력값 받아오기
-        title = request.POST['title']
-        ratings = request.POST['ratings']
-        content = request.POST['content']
-        img = request.FILES["imgfile"]
-
-        # 새로운 데이터 생성
-        new_file = Review_Models(
-            title = title,
-            ratings = ratings,
-            content = content,
-            imgfile = img
-        )
-
-        # 입력받은 데이터를 데이터베이스에 저장 -> 자동으로 id 생성
-        new_file.save()
+        if form.is_valid(): # form이 유효하다면,
+            post = form.save(commit=False) # form 데이터 가져오기
+            post.save() # form 데이터를 DB에 저장
 
         # 결과보기 페이지에 id 값 같이 넘겨주기
-        return redirect('detail', post_id=new_file.id)
+        return redirect('detail', post_id=post.id)
     
     ### 사용자가 입력하기 전, 폼을 화면에 출력해주는 것
     else:
@@ -86,6 +72,7 @@ def img_domain_clf(img_url):
         domain = 'Office'
     else:
         domain = 'None Office'
+
     return domain, round(diff_time, 4)
 
 # 이미지 클래스 분류 로직
@@ -125,15 +112,9 @@ def detail(request, post_id):
     cnn_result, cnn_diff_time = img_domain_clf(img_url)
     yolo_result, yolo_diff_time = img_object_clf(img_url)
 
-    # print(f"수정 전: {review.domain_clf}")
-
     # 결과를 받아와서 필드 값 수정 및 저장
     review.domain_clf = cnn_result
     review.objects_clf = yolo_result
     review.save()
-
-
-    # print(f"수정 후: {review.domain_clf}")
-
 
     return render(request, 'Reviews/review_detail.html', {'review':review})
