@@ -5,6 +5,18 @@
 {% block title %}{{ review.title }} | Ol'reviews{% endblock title %}
 
 {% block content %}
+
+{% comment %} <div class="card mb-3" style='width:50%; margin: 100px auto'>
+    <h5 class="card-title">{{ review.title }}</h5>
+    <p class="card-text"><small class="text-muted">{{ review.dt_created }}</small></p>
+
+    <img src={{ review.imgfile.url }} class="card-img-top" alt="..." style='height: 500px; border-radius: 5%'>
+    <div class="card-body">
+      <p class="card-text">{{ review.get_ratings_display }}</p>
+      <p class="card-text">{{ review.content }}</p>
+    </div>
+</div> {% endcomment %}
+
 <main class="site-body">
   <article class="review-detail max-content-width">
 
@@ -26,16 +38,10 @@
 
     <div class="content">
       <img class="thumb" src={{ review.imgfile.url }}>
+      <p class='domain'>#{{ review.domain_clf }}</p>
+      <p class='domain'>#{{ review.objects_clf }}</p>
       <p class="content">{{ review.content }}</p>
     </div>
-
-    {% comment %} <div class="footer">
-      <a class="back-link" href="#">&lt; 목록으로</a>
-      <div class="buttons">
-        <a class="cp-button warn" href="#">삭제</a>
-        <a class="cp-button secondary" href="#">수정</a>
-      </div>
-    </div> {% endcomment %}
   </article>
-</main>
+</main> 
 {% endblock content %}

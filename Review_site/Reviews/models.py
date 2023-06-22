@@ -26,6 +26,6 @@ class Review_Models(models.Model):
     ratings = models.IntegerField(choices=RATINGS_CHOICES)
     content = models.TextField()
     dt_created = models.DateField(auto_now_add=True)
-    imgfile = models.ImageField(upload_to='review_images/')
+    imgfile = models.ImageField(upload_to='review_images/', null=True, blank=True)
     domain_clf = models.CharField(max_length=15)
     objects_clf = models.TextField()
