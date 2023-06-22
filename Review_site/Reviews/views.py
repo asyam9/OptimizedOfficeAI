@@ -12,17 +12,12 @@ from ultralytics import YOLO
 import time
 import simplejson as json
 
-class IndexView(ListView):
-    """리뷰 조회 페이지"""
-    model = Review_Models
-    template_name = 'Reviews/index.html'
-    context_object_name = 'reviews'
-    paginate_by = 4 # 한 페이지에 표현할 개수
-    ordering = ['-dt_created'] # 순서(- 내림차순)
+# 리뷰 조회 페이지 로직
+def index(request):
+        # 데이터 전체 불러오기
+        reviews = Review_Models.objects.all()
 
-    def index(self, request):
-        reviews = self.model.objects.all()
-        return render(request, self.template_name, {'reviews':reviews})
+        return render(request, 'Reviews/index.html', {'reviews':reviews})
 
 # 리뷰 작성 페이지 로직
 @csrf_exempt
@@ -77,6 +72,7 @@ def img_domain_clf(img_url):
         domain = 'Office'
     else:
         domain = 'None Office'
+
     return domain, round(diff_time, 4)
 
 # 이미지 클래스 분류 로직
@@ -116,15 +112,9 @@ def detail(request, post_id):
     cnn_result, cnn_diff_time = img_domain_clf(img_url)
     yolo_result, yolo_diff_time = img_object_clf(img_url)
 
-    # print(f"수정 전: {review.domain_clf}")
-
     # 결과를 받아와서 필드 값 수정 및 저장
     review.domain_clf = cnn_result
     review.objects_clf = yolo_result
     review.save()
-
-
-    # print(f"수정 후: {review.domain_clf}")
-
 
     return render(request, 'Reviews/review_detail.html', {'review':review})
