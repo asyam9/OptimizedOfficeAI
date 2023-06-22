@@ -15,17 +15,17 @@ class Review_Models(models.Model):
         https://stackoverflow.com/questions/1110153/what-is-the-most-efficient-way-to-store-a-list-in-the-django-models
     """
     RATINGS_CHOICES = {
-        (1, 1),
-        (2, 2),
-        (3, 3),
-        (4, 4),
-        (5, 5)
-    }
+        (1, "★"),
+        (2, "★★"),
+        (3, "★★★"),
+        (4, "★★★★"),
+        (5, "★★★★★")
+    } # (데이터베이스에 저장되는 값, 웹에 표시되는 값)
 
     title = models.CharField(max_length=30)
     ratings = models.IntegerField(choices=RATINGS_CHOICES)
     content = models.TextField()
-    dt_created = models.DateTimeField()
-    imgfile = models.ImageField(upload_to='review_images/')
+    dt_created = models.DateField(auto_now_add=True)
+    imgfile = models.ImageField(upload_to='review_images/', null=True, blank=True)
     domain_clf = models.CharField(max_length=15)
     objects_clf = models.TextField()

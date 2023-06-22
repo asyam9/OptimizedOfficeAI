@@ -1,0 +1,47 @@
+{% extends "Reviews/base_with_nav.html" %}
+
+{% load static %}
+
+{% block title %}{{ review.title }} | Ol'reviews{% endblock title %}
+
+{% block content %}
+
+{% comment %} <div class="card mb-3" style='width:50%; margin: 100px auto'>
+    <h5 class="card-title">{{ review.title }}</h5>
+    <p class="card-text"><small class="text-muted">{{ review.dt_created }}</small></p>
+
+    <img src={{ review.imgfile.url }} class="card-img-top" alt="..." style='height: 500px; border-radius: 5%'>
+    <div class="card-body">
+      <p class="card-text">{{ review.get_ratings_display }}</p>
+      <p class="card-text">{{ review.content }}</p>
+    </div>
+</div> {% endcomment %}
+
+<main class="site-body">
+  <article class="review-detail max-content-width">
+
+    <div class="review-info">
+      <h1 class="title">{{ review.title }}</h1>
+
+      {% comment %} <div class="author">
+        <a class="review-author" href="#">
+          <span>유저1</span>
+        </a>
+      </div> {% endcomment %}
+
+      <date class="date">{{ review.dt_created }}</date>
+
+      <div class="review-rating">
+            <span class="cp-stars">{{ review.get_ratings_display }}</span>
+      </div>
+    </div>
+
+    <div class="content">
+      <img class="thumb" src={{ review.imgfile.url }}>
+      <p class='domain'>#{{ review.domain_clf }}</p>
+      <p class='domain'>#{{ review.objects_clf }}</p>
+      <p class="content">{{ review.content }}</p>
+    </div>
+  </article>
+</main> 
+{% endblock content %}

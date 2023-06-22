@@ -1,0 +1,139 @@
+:root {
+    --max-width: 1100px;
+    --body-background: #fcfcfc;
+    --review-detail-date: #bcb9b0;
+    --review-detail-side-padding: 8px;
+  }
+  
+  /* site */
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    margin: 0;
+    background-color: var(--body-background);
+    word-break: keep-all;
+  }
+  
+  body > .site-body {
+    /* flex: 1 1; */
+    width: 600px;
+    margin: 0 auto;
+  }
+
+  .site-body {
+    width: 100%;
+  }
+  
+  /* review-detail */
+  
+  .review-detail {
+    margin: 80px auto 340px;
+  }
+  
+  .review-detail .review-info {
+    display: grid;
+    grid-template: repeat(3, auto) / repeat(3, auto);
+    grid-auto-flow: row;
+    justify-content: space-between;
+  }
+  
+  /* .review-detail .review-info > .restaurant-name {
+    grid-column: span 3;
+    margin: 0;
+  } */
+  
+  .review-detail .review-info > .title,
+  .review-detail .review-info > .date {
+    margin-left: var(--review-detail-side-padding);
+  }
+  
+  .review-detail .review-info > .author,
+  .review-detail .review-info > .review-rating {
+    margin-right: var(--review-detail-side-padding);
+  }
+  
+  .review-detail .review-info > .title {
+    margin-top: 8px;
+    margin-bottom: 5px;
+    grid-column: span 2;
+    font-size: 22px;
+    font-weight: normal;
+  }
+  
+  .review-detail .review-info > .date {
+    grid-column: span 2;
+    font-size: 14px;
+    color: var(--review-detail-date);
+  }
+  
+  .review-detail .review-info > .author {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .review-detail .content {
+    margin: 45px 0 80px;
+  }
+  
+  .review-detail .content .thumb {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 1000px;
+    max-height: 645px;
+    margin: 0 auto;
+    border-radius: 18px;
+  }
+  
+  .review-detail .content .thumb:not(:last-child) {
+    margin-bottom: 30px;
+  }
+  
+  .review-detail .content .content {
+    margin: 30px var(--review-detail-side-padding) 28px;
+    line-height: 1.82;
+  }
+  
+  .review-detail .content .location {
+    display: inline-flex;
+    align-items: center;
+    margin: var(--review-detail-side-padding);
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .review-detail .content .location > img {
+    margin-right: 5px;
+  }
+  
+  .review-detail .back-link {
+    font-size: 20px;
+  }
+  
+  /* review-author */
+  
+  .review-author {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+  }
+  
+  .review-author > :not(:last-child) {
+    margin-right: 10px;
+  }
+  
+  /* review-rating */
+  
+  /* .review-rating {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  
+  .review-rating .text {
+    margin-left: 8px;
+    font-size: 17px;
+  } */
+  
