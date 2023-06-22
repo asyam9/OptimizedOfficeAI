@@ -21,10 +21,10 @@ python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU')
 conda install -c conda-forge django=4.2.2
 
 - matplotlib 4.2.2 버전 설치
-conda install matplotlib=4.2.2
+pip install matplotlib
 
 - nbformat 5.7.0 버전 설치
-conda install nbformat=5.7.0
+pip install nbformat=5.7.0
 
 # BaseModel 폴더
 베이스 모델 
