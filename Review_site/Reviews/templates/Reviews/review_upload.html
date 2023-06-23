@@ -1,6 +1,15 @@
 {% extends "Reviews/base_with_nav.html" %}
 {% load widget_tweaks %}
 
+{% block nav %}
+<li class="nav-item">
+    <a class="nav-link" aria-current="page" href={% url "index" %}>리뷰 조회</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href={% url "upload" %}>리뷰 입력</a>
+  </li>
+{% endblock nav %}
+
 {% block content %}
 <div class="container" style='width: 50%; margin-top:100px'>
     <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
