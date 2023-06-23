@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
+from django.core.paginator import Paginator
 from Reviews.models import Review_Models
 from .forms import FileUploadForm
 
@@ -17,7 +18,13 @@ def index(request):
         # 데이터 전체 불러오기
         reviews = Review_Models.objects.all()
 
-        return render(request, 'Reviews/index.html', {'reviews':reviews})
+        # paginator 객체 불러오기(queryset, 한 페이지에서 보여줄 포스트 개수)
+        paginator = Paginator(reviews, 9)
+        page = request.GET.get('page') # page라는 명으로 들러온 값을 가져오겠다(ex) ~/?page=4
+        page_obj = paginator.get_page(page)
+
+        # return render(request, 'Reviews/index.html', {'reviews':reviews})
+        return render(request, 'Reviews/index.html', {'page_obj':page_obj, 'paginator':paginator})
 
 # 리뷰 작성 페이지 로직
 @csrf_exempt

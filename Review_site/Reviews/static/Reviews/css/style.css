@@ -107,3 +107,26 @@ body > .site-body {
 .review-detail .back-link {
   font-size: 20px;
 }
+
+/* paginator */
+
+.pagination > li > a
+{
+    background-color: white;
+    color: green;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: green;
+    background-color: #eee;
+    border-color: #ddd;
+}
+.page-item .active {
+    color: white;
+    background-color: green;
+    border: solid 1px green;
+}

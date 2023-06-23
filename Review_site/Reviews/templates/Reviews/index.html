@@ -1,24 +1,43 @@
 {% extends "Reviews/base_with_nav.html" %}
 
 {% block content %}
-<div class="container" style='width: 100%; margin-top:100px'>
-  <h5>리뷰 목록</h5>
-  <hr>
+  <div class="container" style='width: 100%; margin-top:100px'>
+    <h5>리뷰 목록</h5>
+    <hr>
 
-  <div class="container">
-    <div class="row">
-      {% for review in reviews %}
-      <div class="col-sm" style="padding: 12px">
-        <div class="card" style="width: 400px;">
-          <img src="{{ review.imgfile.url }}" class="card-img-top" style="height: 250px">
-          <div class="card-body">
-            <a href={% url "detail" review.id %} style="text-decoration-line: none; color: black;"><h5 class="card-title">{{ review.title }}</h5></a>
-            <p class="card-text">{{ review.dt_created }}</p>
+    <div class="container">
+      <div class="row">
+        {% for review in page_obj %}
+        <div class="col-sm" style="padding: 12px">
+          <div class="card" style="width: 400px;">
+            <img src="{{ review.imgfile.url }}" class="card-img-top" style="height: 250px">
+            <div class="card-body">
+              <a href={% url "detail" review.id %} style="text-decoration-line: none; color: black;"><h5 class="card-title">{{ review.title }}</h5></a>
+              <p class="card-text">{{ review.dt_created }}</p>
+            </div>
           </div>
         </div>
+        {% endfor %}
       </div>
-      {% endfor %}
     </div>
   </div>
-</div>
+
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+          <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+        {% endif %}
+        {% for page in paginator.page_range %}
+          {% if page == page_obj.number %}
+            <li class="page-item"><a class="page-link active" href="?page={{page}}">{{ page }}</a></li>
+          {% else %}
+            <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if page_obj.has_next %}
+          <li class="page-item"><a class="page-link" href="?page={{ page_obj.end_index }}">Last</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+
 {% endblock content %}
