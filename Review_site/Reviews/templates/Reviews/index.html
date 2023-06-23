@@ -22,22 +22,25 @@
     </div>
   </div>
 
-    <nav aria-label="Page navigation example">
-      <ul class="pagination justify-content-center">
-        {% if page_obj.has_previous %}
-          <li class="page-item"><a class="page-link" href="?page=1">First</a></li>
+  <!--paginator 기능 구현-->
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %} <!--이전 페이지가 존재하는 경우 First 버튼 활성화-->
+        <li class="page-item"><a class="page-link" href="?page=1">First</a></li> <!--버튼 클릭시 첫번째 페이지로 이동-->
+      {% endif %}
+
+      {% for page in paginator.page_range %} <!--page 개수만큼 itertor ex) [1, 2, 3, 4] -->
+        {% if page == page_obj.number %} <!--Page.number: 해당 페이지의 페이지번호를 의미 -->
+          <li class="page-item"><a class="page-link active" href="?page={{page}}">{{ page }}</a></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
         {% endif %}
-        {% for page in paginator.page_range %}
-          {% if page == page_obj.number %}
-            <li class="page-item"><a class="page-link active" href="?page={{page}}">{{ page }}</a></li>
-          {% else %}
-            <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
-          {% endif %}
-        {% endfor %}
-        {% if page_obj.has_next %}
-          <li class="page-item"><a class="page-link" href="?page={{ page_obj.end_index }}">Last</a></li>
-        {% endif %}
-      </ul>
-    </nav>
+      {% endfor %}
+
+      {% if page_obj.has_next %} <!--다음 페이지가 존재하는 경우 Last 버튼 활성화-->
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.end_index }}">Last</a></li>
+      {% endif %}
+    </ul>
+  </nav>
 
 {% endblock content %}
