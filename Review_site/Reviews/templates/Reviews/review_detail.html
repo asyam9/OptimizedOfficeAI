@@ -6,17 +6,6 @@
 
 {% block content %}
 
-{% comment %} <div class="card mb-3" style='width:50%; margin: 100px auto'>
-    <h5 class="card-title">{{ review.title }}</h5>
-    <p class="card-text"><small class="text-muted">{{ review.dt_created }}</small></p>
-
-    <img src={{ review.imgfile.url }} class="card-img-top" alt="..." style='height: 500px; border-radius: 5%'>
-    <div class="card-body">
-      <p class="card-text">{{ review.get_ratings_display }}</p>
-      <p class="card-text">{{ review.content }}</p>
-    </div>
-</div> {% endcomment %}
-
 <main class="site-body">
   <article class="review-detail max-content-width">
 
@@ -35,6 +24,7 @@
             <span class="cp-stars">{{ review.get_ratings_display }}</span>
       </div>
     </div>
+    <hr>
 
     <div class="content">
       <img class="thumb" src={{ review.imgfile.url }}>
@@ -45,3 +35,4 @@
   </article>
 </main> 
 {% endblock content %}
+
