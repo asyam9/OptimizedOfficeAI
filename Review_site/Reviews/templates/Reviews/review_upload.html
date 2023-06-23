@@ -1,37 +1,46 @@
 {% extends "Reviews/base_with_nav.html" %}
 {% load widget_tweaks %}
 
+{% block nav %}
+<li class="nav-item">
+    <a class="nav-link" aria-current="page" href={% url "index" %}>리뷰 조회</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href={% url "upload" %}>리뷰 입력</a>
+  </li>
+{% endblock nav %}
+
 {% block content %}
 <div class="container" style='width: 50%; margin-top:100px'>
     <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
         {% csrf_token %}
 
-        <!--폼 필드에 맞는 폼을 자동으로 생성해줌-->
-        <div class="form-floating mb-3">
-            {{ fileuploadForm.title|add_class:"form-control"|attr:"id:floatingInput"|attr:"placeholder:name@example.com" }} 
-            <label for="id_title">제목</label>
-        </div>
-    
-        <div class="form-floating" style="margin-bottom: 16px">
-            {{ fileuploadForm.ratings|add_class:"form-select"|attr:"id:floatingSelect"|attr:"aria-label:Floating label select example" }} 
-            <label for="id_ratings">별점</label>
-            </div>
-    
-        <div class="form-floating" style="margin-bottom: 16px">
-            {{ fileuploadForm.content|add_class:"form-control"|attr:"id:floatingTextarea2"|attr:"placeholder:Leave a comment here"|attr:"style:height: 150px" }} 
-            <label for="id_content">내용</label>
-        </div>
-    
-        <div class="mb-3" style="margin-bottom: 16px">
-            {{ fileuploadForm.imgfile|add_class:"form-control"|attr:"id:formFile" }}
-            {% comment %} <input class="form-control" type="file" id="formFile"> {% endcomment %}
-        </div>
+        <h5>리뷰 작성하기</h5>
+        <hr>
 
+        <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">제목</th>
+                <td>{{ fileuploadForm.title|add_class:"form-control"|attr:"id:floatingInput" }}</td>
+              </tr>
+              <tr>
+                <th scope="row">별점</th>
+                <td> {{ fileuploadForm.ratings|add_class:"form-select"|attr:"id:floatingSelect"|attr:"aria-label:Floating label select example" }} </td>
+              </tr>
+              <tr>
+                <th scope="row">내용</th>
+                <td>  {{ fileuploadForm.content|add_class:"form-control"|attr:"id:floatingTextarea2"|attr:"placeholder:Leave a comment here"|attr:"style:height: 150px" }}  </td>
+              </tr>
+              <tr>
+                <th scope="row">리뷰 사진</th>
+                <td>  {{ fileuploadForm.imgfile|add_class:"form-control"|attr:"id:formFile" }}  </td>
+              </tr>
+            </tbody>
+          </table>
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="btn btn-outline-success">제출</button>
         </div>
-
-        {% comment %} <input type="submit" value="제출"> {% endcomment %}
     </form>
 </div>
 

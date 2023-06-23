@@ -1,16 +1,27 @@
 {% extends "Reviews/base_with_nav.html" %}
 
 {% block content %}
-<div class="container text-center">
-  <div class="row">
-    <div class="col">
-      <div class="card" style="width: 18rem;">
-        <img src="" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">title</h5>
-          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-    </div>
+<div class="container" style='width: 50%; margin-top:100px'>
+  <h5>리뷰 조회하기</h5>
+  <hr>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">제목</th>
+        <th scope="col">작성일</th>
+      </tr>
+    </thead>
+    {% for review in reviews %}
+      <tbody>
+        <tr>
+          <th scope="row">{{ review.id }}</th>
+          <td>{{ review.title }}</td>
+          <td>{{ review.dt_created }}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+  </table>
+</div>
 {% endblock content %}

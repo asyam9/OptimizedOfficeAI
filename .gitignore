@@ -1,0 +1,22 @@
+### Django -> Review_site
+
+Review_site/media/
+Review_site/db.sqlite3
+Review_site/db.sqlite3-journal
+
+Review_site/*.log
+Review_site/*.pot
+Review_site/*.pyc
+Review_site/__pycache__/
+Review_site/local_settings.py
+
+### Django -> dev_django
+dev_django/image_pro/media
+dev_django/image_pro/db.sqlite3
+dev_django/image_pro/db.sqlite3-journal
+
+dev_django/image_pro/*.log
+dev_django/image_pro/*.pot
+dev_django/image_pro/*.pyc
+dev_django/image_pro/__pycache__/
+dev_django/image_pro/local_settings.py
