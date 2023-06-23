@@ -18,10 +18,10 @@ def index(request):
         # 데이터 전체 불러오기
         reviews = Review_Models.objects.all()
 
-        # paginator 객체 불러오기(queryset, 한 페이지에서 보여줄 포스트 개수)
+        # paginator 객체 생성(queryset, 한 페이지에서 보여줄 포스트 개수)
         paginator = Paginator(reviews, 9)
         page = request.GET.get('page') # page라는 명으로 들러온 값을 가져오겠다(ex) ~/?page=4
-        page_obj = paginator.get_page(page)
+        page_obj = paginator.get_page(page) # 페이지가 숫자가 아닌 경우 첫 페이지를 반환, 음수나 범위를 벗어난 경우 마지막 페이지 반환 -> Page 객체 반환
 
         # return render(request, 'Reviews/index.html', {'reviews':reviews})
         return render(request, 'Reviews/index.html', {'page_obj':page_obj, 'paginator':paginator})
