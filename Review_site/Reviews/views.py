@@ -31,6 +31,7 @@ def index(request):
 def upload(request):
     ### 사용자가 폼을 통해 입력을 했을 경우, 
     if request.method == 'POST':
+
         # 입력된 내용들을 form이라는 변수에 저장
         form = FileUploadForm(request.POST, request.FILES)
 
@@ -38,16 +39,15 @@ def upload(request):
             post = form.save(commit=False) # form 데이터 저장(임시 저장)
             post.save() # form 데이터를 DB에 저장
 
-        # 결과보기 페이지에 id 값 같이 넘겨주기
-        return redirect('detail', post_id=post.id)
-    
-    ### 사용자가 입력하기 전, 폼을 화면에 출력해주는 것
+            # 결과보기 페이지에 id 값 같이 넘겨주기
+            return redirect('detail', post_id=post.id)
+        
+    ### 사용자가 입력하기 전, 새로운 폼을 생성
     else:
-        fileuploadForm = FileUploadForm()
-        context = {
-            'fileuploadForm': fileuploadForm,
-        }
-        return render(request, 'Reviews/review_upload.html', context)
+        form = FileUploadForm()
+
+    # form이 유효하지 않다면, 기존 form 형식 유지 /
+    return render(request, 'Reviews/review_upload.html', {'form':form})
 
 # 이미지 도메인 분류 로직
 def img_domain_clf(img_url):

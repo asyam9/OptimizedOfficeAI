@@ -1,4 +1,7 @@
 from django.db import models
+from django.core.validators import validate_image_file_extension, FileExtensionValidator
+
+imgvalidator = FileExtensionValidator('.jpg', 'jpg 형식의 확장자만 사용 가능합니다.')
 
 # Create your models here.
 class Review_Models(models.Model):
@@ -26,6 +29,6 @@ class Review_Models(models.Model):
     ratings = models.IntegerField(choices=RATINGS_CHOICES)
     content = models.TextField()
     dt_created = models.DateField(auto_now_add=True)
-    imgfile = models.ImageField(upload_to='review_images/')
+    imgfile = models.ImageField(upload_to='review_images/', validators=[validate_image_file_extension, imgvalidator])
     domain_clf = models.CharField(max_length=15)
     objects_clf = models.TextField()
