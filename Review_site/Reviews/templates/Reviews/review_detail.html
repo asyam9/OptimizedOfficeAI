@@ -16,7 +16,7 @@
         </a>
       </div> {% endcomment %}
 
-      <date class="date">{{ review.dt_created }}</date>
+      <date class="date">{{ review.dt_created|date:"Y-m-d" }}</date>
 
       <div class="review-rating">
             <span class="cp-stars">{{ review.get_ratings_display }}</span>

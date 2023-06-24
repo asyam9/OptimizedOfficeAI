@@ -13,7 +13,7 @@
             <img src="{{ review.imgfile.url }}" class="card-img-top" style="height: 250px">
             <div class="card-body">
               <a href={% url "detail" review.id %} style="text-decoration-line: none; color: black;"><h5 class="card-title">{{ review.title }}</h5></a>
-              <p class="card-text">{{ review.dt_created }}</p>
+              <p class="card-text">{{ review.dt_created|date:"Y-m-d" }}</p>
             </div>
           </div>
         </div>
