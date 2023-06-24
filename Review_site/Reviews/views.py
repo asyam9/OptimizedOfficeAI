@@ -35,7 +35,7 @@ def upload(request):
         form = FileUploadForm(request.POST, request.FILES)
 
         if form.is_valid(): # form이 유효하다면,
-            post = form.save(commit=False) # form 데이터 가져오기
+            post = form.save(commit=False) # form 데이터 저장(임시 저장)
             post.save() # form 데이터를 DB에 저장
 
         # 결과보기 페이지에 id 값 같이 넘겨주기

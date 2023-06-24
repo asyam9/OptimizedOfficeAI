@@ -18,24 +18,24 @@
         {% csrf_token %}
 
         <h5>리뷰 작성하기</h5>
+        (* 표시 필수 입력)
         <hr>
-
         <table class="table">
             <tbody>
               <tr>
-                <th scope="row">제목</th>
+                <th scope="row">제목*</th>
                 <td>{{ fileuploadForm.title|add_class:"form-control"|attr:"id:floatingInput"|attr:"placeholder: 최대 30글자까지 입력 가능" }}</td>
               </tr>
               <tr>
-                <th scope="row">별점</th>
+                <th scope="row">별점*</th>
                 <td> {{ fileuploadForm.ratings|add_class:"form-select"|attr:"id:floatingSelect"|attr:"aria-label:Floating label select example" }} </td>
               </tr>
               <tr>
-                <th scope="row">내용</th>
+                <th scope="row">내용*</th>
                 <td>  {{ fileuploadForm.content|add_class:"form-control"|attr:"id:floatingTextarea2"|attr:"placeholder:리뷰 내용을 작성하세요"|attr:"style:height: 150px" }}  </td>
               </tr>
               <tr>
-                <th scope="row">리뷰 사진</th>
+                <th scope="row">리뷰 사진*</th>
                 <td>  {{ fileuploadForm.imgfile|add_class:"form-control"|attr:"id:formFile" }}  </td>
               </tr>
             </tbody>
