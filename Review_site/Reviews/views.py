@@ -11,7 +11,6 @@ from tensorflow.keras.preprocessing import image
 from ultralytics import YOLO
 
 import time
-import simplejson as json
 
 # 이미지 도메인 분류 로직
 def img_domain_clf(img_url):
@@ -28,7 +27,7 @@ def img_domain_clf(img_url):
     img = tf.expand_dims(img, axis=0)
 
     # AI 모델 로드
-    model = tf.keras.models.load_model('C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/ai_models/model_16.h5', compile=False)
+    model = tf.keras.models.load_model('C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/ai_models/CNN_Model_Dataset2.h5', compile=False)
     
     # 이미지 분류 수행
     start_time = time.time()
@@ -49,16 +48,14 @@ def img_domain_clf(img_url):
 # 이미지 클래스 분류 로직
 def img_object_clf(img_url):
     # 이미지 경로 설정(받아온 url과 로컬 환경의 경로 합쳐주기)
-    # path = "C:/Users/DaonWoori/programming/OptimizedOfficeAI/Review_site" + img_url
     path = "C:/Users/DaonWoori/OptimizedOfficeAI/Review_site" + img_url
-    # C:\Users\DaonWoori\OptimizedOfficeAI\Review_site\media\review_images
+
     # 모델 불러오기 
     model = YOLO("C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/ai_models/best.pt")
     names = model.names
 
     # 이미지 분류 수행
     start_time = time.time()
-    # results = model(path, save=True)
     result = model.predict(source=path)
     end_time = time.time()
 
@@ -69,8 +66,6 @@ def img_object_clf(img_url):
     for r in result:
         for c in r.boxes.cls:
             objects_list.append(names[int(c)])
-
-    objects_str = json.dumps(objects_list)
 
     return objects_list, round(diff_time, 4)
 
