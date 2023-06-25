@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import validate_image_file_extension, FileExtensionValidator
 
-imgvalidator = FileExtensionValidator('.jpg', 'jpg 형식의 확장자만 사용 가능합니다.')
+imgvalidator = FileExtensionValidator(allowed_extensions=['jpg'], message='jpg 형식의 확장자만 사용 가능합니다.')
 
 # Create your models here.
 class Review_Models(models.Model):
