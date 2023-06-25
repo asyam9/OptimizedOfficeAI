@@ -71,8 +71,19 @@ def img_object_clf(img_url):
 
 # 리뷰 조회 페이지 로직
 def index(request):
-        # 데이터 전체 불러오기
-        reviews = Review_Models.objects.all()
+        sort = request.GET.get('sort', None)
+
+        if sort == 'date-new':
+            reviews = Review_Models.objects.order_by('-dt_created')
+        elif sort== 'date-old':
+            reviews = Review_Models.objects.order_by('dt_created')
+        elif sort == 'likes-high':
+            reviews = Review_Models.objects.order_by('-ratings')
+        elif sort == 'likes-low':
+            reviews = Review_Models.objects.order_by('ratings')
+        else:
+            # 데이터 전체 불러오기
+            reviews = Review_Models.objects.all()
 
         # paginator 객체 생성(queryset, 한 페이지에서 보여줄 포스트 개수)
         paginator = Paginator(reviews, 9)

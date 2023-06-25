@@ -3,6 +3,16 @@
 {% block content %}
   <div class="container" style='width: 100%; margin-top:100px'>
     <h5>리뷰 목록</h5>
+    <select id="sort-select" onchange="location = this.value;">
+      <option class='' value='/'>정렬 기준</option>
+      <option class="sort-date" value="?sort=date-new">최신 순</option>
+      <option class="sort-date" value="?sort=date-old">오래된 순</option>
+      <option class="sort-likes" value="?sort=likes-high">별점 높은 순</option>
+      <option class="sort-likes" value="?sort=likes-loew">별점 낮은 순</option>
+      {% comment %} {% if user.is_authenticated %}
+      <option class="sort-mypost" value="?sort=mypost">내가쓴글</option>
+      {% endif %} {% endcomment %}
+    </select>
     <hr>
 
     <div class="container">
