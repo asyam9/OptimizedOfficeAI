@@ -31,4 +31,4 @@ class Review_Models(models.Model):
     dt_created = models.DateField(auto_now_add=True)
     imgfile = models.ImageField(upload_to='review_images/', validators=[validate_image_file_extension, imgvalidator])
     domain_clf = models.CharField(max_length=15)
-    objects_clf = models.TextField()
+    objects_clf = models.CharField(max_length=15)

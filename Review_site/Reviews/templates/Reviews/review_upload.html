@@ -1,8 +1,16 @@
 {% extends "Reviews/base_with_nav.html" %}
 {% load widget_tweaks %}
 
-{% block title %}Ol'reviews | Review_upload{% endblock title %}
+<!--웹 페이지 이름-->
+{% block title %} 
+  {% if review %}
+    리뷰 수정 | Ol'reviews
+  {% else %}
+    리뷰 작성 | Ol'reviews
+  {% endif %}
+{% endblock title %}
 
+<!--내비게이션 바-->
 {% block nav %}
 <li class="nav-item">
     <a class="nav-link" aria-current="page" href={% url "index" %}>리뷰 조회</a>
@@ -12,21 +20,10 @@
   </li>
 {% endblock nav %}
 
+<!--리뷰 입력 폼-->
 {% block content %}
-
-{% if form.errors %}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  {% for field, errors in form.errors.items %}
-  {% for error in errors %}
-    {{ error }}
-  {% endfor %}
-  {% endfor %}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{% endif %}
-
 <div class="container" style='width: 50%; margin-top:100px'>
-    <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
         <h5>리뷰 작성하기</h5>
@@ -53,10 +50,31 @@
               </tr>
             </tbody>
           </table>
-        <div class="d-grid gap-2 col-6 mx-auto">
+          <!--에러 발생 시 경고창 띄우기-->
+          {% if form.errors %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                  {{ error }}
+                {% endfor %}
+              {% endfor %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endif %}
+          <div class="d-grid gap-2 col-6 mx-auto" style='float:left; padding: 0 10px'>
             <button type="submit" class="btn btn-outline-success">제출</button>
-        </div>
+          </div>
     </form>
+    <!--버튼 구현-->
+    <div class="d-grid gap-2 col-6 mx-auto" style='float:right; width: 10%'>
+      {% if review %}
+      <a href={% url "detail" review.id %}>
+      {% else %}
+      <a href={% url "index" %}>
+      {% endif %}
+      <button type="submit" class="btn btn-outline-secondary">취소</button>
+      </a>
+  </div>
 </div>
 
 {% endblock content %}

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404, HttpResponse, reverse
 from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
@@ -11,6 +11,11 @@ from tensorflow.keras.preprocessing import image
 from ultralytics import YOLO
 
 import time
+import math
+
+def calculate_distance(point):
+    x_centroid , y_centroid = 0.5, 0.5
+    return math.sqrt((x_centroid - point[0])**2 + (y_centroid - point[1])**2)
 
 # 이미지 도메인 분류 로직
 def img_domain_clf(img_url):
@@ -54,6 +59,8 @@ def img_object_clf(img_url):
     model = YOLO("C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/ai_models/best.pt")
     names = model.names
 
+    # 62f9a36ea3cea.jpg
+    # calculator186_gjB6pWv.jpg
     # 이미지 분류 수행
     start_time = time.time()
     result = model.predict(source=path)
@@ -61,13 +68,32 @@ def img_object_clf(img_url):
 
     diff_time = end_time - start_time
 
+    #오브젝트별 중심 거리 
+    distances = []
     objects_list = []
 
+    # result 내의 결과값들
     for r in result:
-        for c in r.boxes.cls:
-            objects_list.append(names[int(c)])
+        for box in r.boxes:
+            x1 = float(box.xyxyn[0][0])
+            y1 = float(box.xyxyn[0][1])
+            x2 = float(box.xyxyn[0][2])
+            y2 = float(box.xyxyn[0][3])
 
-    return objects_list, round(diff_time, 4)
+            x_mid , y_mid = ( x1 + x2 ) / 2 , ( y1 + y2 ) / 2
+            mid = [x_mid, y_mid]
+            distance = calculate_distance(mid)
+            distances.append(distance)
+
+            # class id 에 해당하는 이름 출력하기
+            objects_list.append(names[int(box.cls)])
+
+    try:
+        object_clf = objects_list[distances.index(min(distances))]
+    except:
+        object_clf = "None"
+
+    return object_clf, round(diff_time, 4)
 
 # 리뷰 조회 페이지 로직
 def index(request):
@@ -137,3 +163,43 @@ def detail(request, post_id):
     review = Review_Models.objects.get(id=post_id)
 
     return render(request, 'Reviews/review_detail.html', {'review':review})
+
+# 리뷰 수정페이지 로직
+def update(request, post_id):
+    review = Review_Models.objects.get(id=post_id)
+
+    ### 사용자가 폼을 통해 입력을 했을 경우, 
+    if request.method == 'POST':
+        # 입력된 내용들을 form이라는 변수에 저장
+        update_form = FileUploadForm(request.POST, request.FILES, instance=review)
+
+        if update_form.is_valid(): # form이 유효하다면,
+            post = update_form.save(commit=False) # form 데이터 저장(임시 저장)
+            post.save() # form 데이터를 DB에 저장
+
+            ### 데이터 분류 로직 ###
+            review = Review_Models.objects.get(id=post.id)
+
+            # 이미지 분류 함수 호출(이미지는 url형태로 넘겨주기)
+            cnn_result, cnn_diff_time = img_domain_clf(review.imgfile.url)
+            yolo_result, yolo_diff_time = img_object_clf(review.imgfile.url)
+
+             # 결과를 받아와서 필드 값 수정 및 저장
+            review.domain_clf = cnn_result
+            review.objects_clf = yolo_result
+            review.save()
+
+            # 결과보기 페이지에 id 값 같이 넘겨주기
+            return redirect('detail', post_id=post.id)
+    else:
+        # 기존에 입력받은 데이터를 그대로 출력
+        update_form = FileUploadForm(instance=review)
+
+    return render(request, 'Reviews/review_upload.html', {'form':update_form, 'review':review})
+
+# 리뷰 삭제 페이지
+def delete(request, post_id):
+    review = Review_Models.objects.get(id=post_id)
+    review.delete()
+
+    return redirect('index')
