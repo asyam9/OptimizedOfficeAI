@@ -3,9 +3,9 @@ from ultralytics import YOLO
 import time
 import math
 
-def calculate_distance(mid):
-    x_centroid, y_centroid = 0.5, 0.5
-    return math.sqrt((x_centroid - mid[0]) * 2 + (y_centroid - mid[1]) * 2)
+def calculate_distance(point):
+    x_centroid , y_centroid = 0.5, 0.5
+    return math.sqrt((x_centroid - point[0])**2 + (y_centroid - point[1])**2)
 
 # 이미지 클래스 분류 로직
 def img_object_clf(img_url):
@@ -25,22 +25,19 @@ def img_object_clf(img_url):
 
     # result 내의 결과값들
     for r in result:
-        x1 = float(r.boxes.xyxyn[0][0])
-        y1 = float(r.boxes.xyxyn[0][1])
-        x2 = float(r.boxes.xyxyn[0][2])
-        y2 = float(r.boxes.xyxyn[0][3])
-    
-        x_mid , y_mid = ( x1 + x2 ) / 2 , ( y1 + y2 ) / 2
-        mid = [x_mid, y_mid]
-        distance = calculate_distance(mid)
-        distances.append(distance)
-    
         for box in r.boxes:
-            print(r.boxes)
+            x1 = float(box.xyxyn[0][0])
+            y1 = float(box.xyxyn[0][1])
+            x2 = float(box.xyxyn[0][2])
+            y2 = float(box.xyxyn[0][3])
+
+            x_mid , y_mid = ( x1 + x2 ) / 2 , ( y1 + y2 ) / 2
+            mid = [x_mid, y_mid]
+            distance = calculate_distance(mid)
+            distances.append(distance)
+
             # class id 에 해당하는 이름 출력하기
             print(names[int(box.cls)])
-        
-        # 오브젝트 별 거리 
         print(distances)
 
     objects_list = []
