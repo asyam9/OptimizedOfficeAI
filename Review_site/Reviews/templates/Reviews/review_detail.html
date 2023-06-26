@@ -32,7 +32,9 @@
     </div>
     <hr>
   </article>
-  <div style="margin-bottom: 50px;"><a href="{% url "index" %}" style="text-decoration-line: none; color: black;"> < 목록으로 </a></div>
+  <div style="margin-bottom: 50px; float: left; width: 33%;"><a href="{% url "index" %}" style="text-decoration-line: none; color: black;"> < 목록으로 </a></div>
+  <a href="#" style='float: right; padding: 0 10px'><button class="btn btn-outline-success" type="submit">삭제</button></a>
+  <a href="{% url 'edit' review.id %}" style='float: right; padding: 0 10px'><button class="btn btn-outline-success" type="submit">수정</button></a>
 </main> 
 {% endblock content %}
 
