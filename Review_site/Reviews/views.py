@@ -173,4 +173,7 @@ def update(request, post_id):
 
 # 리뷰 삭제 페이지
 def delete(request, post_id):
-    pass
+    review = Review_Models.objects.get(id=post_id)
+    review.delete()
+
+    return redirect('index')
