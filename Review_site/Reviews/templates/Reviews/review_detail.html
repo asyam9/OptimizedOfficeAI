@@ -5,8 +5,8 @@
 {% block content %}
 
 <main class="site-body">
+  <!--리뷰 상세보기-->
   <article class="review-detail max-content-width">
-
     <div class="review-info">
       <h1 class="title">{{ review.title }}</h1>
 
@@ -26,15 +26,24 @@
 
     <div class="content">
       <img class="thumb" src={{ review.imgfile.url }}>
-      <p class='domain'>#{{ review.domain_clf }}</p>
-      <p class='domain'>#{{ review.objects_clf }}</p>
+      <p class='domain'># {{ review.domain_clf }}</p>
+      <p class='domain'># {{ review.objects_clf }}</p>
       <p class="content">{{ review.content }}</p>
     </div>
     <hr>
   </article>
-  <div style="margin-bottom: 50px; float: left; width: 33%;"><a href="{% url "index" %}" style="text-decoration-line: none; color: black;"> < 목록으로 </a></div>
-  <a href="#" style='float: right; padding: 0 10px'><button class="btn btn-outline-success" type="submit">삭제</button></a>
-  <a href="{% url 'edit' review.id %}" style='float: right; padding: 0 10px'><button class="btn btn-outline-success" type="submit">수정</button></a>
+
+  <!--버튼 구현-->
+  <div style="margin-bottom: 50px; float: left; width: 33%;"><a href={% url "index" %} style="text-decoration-line: none; color: black;"> ◁ 목록으로 </a></div>
+  <a href={% url "delete" review.id %} style="float: right; padding: 0 10px">
+    <button type="submit" class="btn btn-outline-success">삭제</button>
+  </a>
+  <a href={% url "edit" review.id %} style="float: right; padding: 0 10px">
+    <button class="btn btn-outline-success" type="submit">수정</button>
+  </a>
 </main> 
 {% endblock content %}
+
+{% block sript %}
+{% endblock sript %}
 
