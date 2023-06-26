@@ -76,7 +76,7 @@ body > .site-body {
   display: block;
   width: 100%;
   height: auto;
-  /* object-fit: cover; */
+  object-fit: contain;
   max-width: 1000px;
   max-height: 645px;
   margin: 0 auto;
