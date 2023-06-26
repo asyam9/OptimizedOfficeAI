@@ -75,12 +75,11 @@ body > .site-body {
 .review-detail .content .thumb {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
   max-width: 1000px;
   max-height: 645px;
   margin: 0 auto;
-  /* border-radius: 18px; */
 }
 
 .review-detail .content .thumb:not(:last-child) {

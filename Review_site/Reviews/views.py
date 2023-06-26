@@ -13,6 +13,8 @@ from ultralytics import YOLO
 import time
 import math
 
+FILE_PATH = "C:/Users/DaonWoori/OptimizedOfficeAI/Review_site"
+
 def calculate_distance(point):
     x_centroid , y_centroid = 0.5, 0.5
     return math.sqrt((x_centroid - point[0])**2 + (y_centroid - point[1])**2)
@@ -20,7 +22,7 @@ def calculate_distance(point):
 # 이미지 도메인 분류 로직
 def img_domain_clf(img_url):
     # 이미지 경로 설정(받아온 url과 로컬 환경의 경로 합쳐주기)
-    path = "C:/Users/DaonWoori/OptimizedOfficeAI/Review_site" + img_url
+    path = FILE_PATH + img_url
     print(path)
 
     # 이미지 불러오기
@@ -32,7 +34,7 @@ def img_domain_clf(img_url):
     img = tf.expand_dims(img, axis=0)
 
     # AI 모델 로드
-    model = tf.keras.models.load_model('C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/ai_models/CNN_Model_Dataset2.h5', compile=False)
+    model = tf.keras.models.load_model(FILE_PATH + '/ai_models/CNN_Model_Dataset2.h5', compile=False)
     
     # 이미지 분류 수행
     start_time = time.time()
@@ -53,10 +55,10 @@ def img_domain_clf(img_url):
 # 이미지 클래스 분류 로직
 def img_object_clf(img_url):
     # 이미지 경로 설정(받아온 url과 로컬 환경의 경로 합쳐주기)
-    path = "C:/Users/DaonWoori/OptimizedOfficeAI/Review_site" + img_url
+    path = FILE_PATH + img_url
 
     # 모델 불러오기 
-    model = YOLO("C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/ai_models/best.pt")
+    model = YOLO(FILE_PATH + "/ai_models/best.pt")
     names = model.names
 
     # 62f9a36ea3cea.jpg
@@ -165,6 +167,7 @@ def detail(request, post_id):
     return render(request, 'Reviews/review_detail.html', {'review':review})
 
 # 리뷰 수정페이지 로직
+@csrf_exempt
 def update(request, post_id):
     review = Review_Models.objects.get(id=post_id)
 
@@ -198,6 +201,7 @@ def update(request, post_id):
     return render(request, 'Reviews/review_upload.html', {'form':update_form, 'review':review})
 
 # 리뷰 삭제 페이지
+@csrf_exempt
 def delete(request, post_id):
     review = Review_Models.objects.get(id=post_id)
     review.delete()

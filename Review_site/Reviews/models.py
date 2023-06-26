@@ -1,7 +1,7 @@
 from django.db import models
 from django.core.validators import validate_image_file_extension, FileExtensionValidator
 
-imgvalidator = FileExtensionValidator(allowed_extensions=['jpg'], message='jpg 형식의 확장자만 사용 가능합니다.')
+imgvalidator = FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'], message='다음과 같은 형식의 확장자만 사용 가능합니다(jpg, png, jpeg)')
 
 # Create your models here.
 class Review_Models(models.Model):
@@ -14,7 +14,7 @@ class Review_Models(models.Model):
         4. dt_created: 리뷰 작성일자
         5. imgfile: 리뷰 이미지
         6. domain: 도메인 분류 결과
-        7. objects: 클래스 분류 결과 -> 여러 개의 오브젝트가 리스트 형태로 반환 가능
+        7. objects: 클래스 분류 결과
         https://stackoverflow.com/questions/1110153/what-is-the-most-efficient-way-to-store-a-list-in-the-django-models
     """
     RATINGS_CHOICES = {

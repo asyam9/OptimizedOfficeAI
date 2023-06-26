@@ -20,7 +20,7 @@
         {% for review in page_obj %}
         <div class="col-sm" style="padding: 12px">
           <div class="card" style="width: 400px;">
-            <img src="{{ review.imgfile.url }}" class="card-img-top" style="height: 250px">
+            <a href={% url "detail" review.id %}><img src="{{ review.imgfile.url }}" class="card-img-top" style="height: 250px;object-fit:cover; "></a>
             <div class="card-body">
               <a href={% url "detail" review.id %} style="text-decoration-line: none; color: black;"><h5 class="card-title">{{ review.title }}</h5></a>
               <p class="card-text">{{ review.get_ratings_display }}</p>
