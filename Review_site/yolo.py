@@ -13,6 +13,11 @@ def img_object_clf(img_url):
     model = YOLO("C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/ai_models/best.pt")
     names = model.names
 
+    print(names)
+
+
+    # 62f9a36ea3cea.jpg
+    # calculator186_gjB6pWv.jpg
     # 이미지 분류 수행
     start_time = time.time()
     result = model.predict(source="C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/media/review_images/calculator186_gjB6pWv.jpg")
@@ -22,6 +27,7 @@ def img_object_clf(img_url):
 
     #오브젝트별 중심 거리 
     distances = []
+    objects_list = []
 
     # result 내의 결과값들
     for r in result:
@@ -37,11 +43,15 @@ def img_object_clf(img_url):
             distances.append(distance)
 
             # class id 에 해당하는 이름 출력하기
-            print(names[int(box.cls)])
-        print(distances)
+            objects_list.append(names[int(box.cls)])
 
-    objects_list = []
+    try:
+        object_clf = objects_list[distances.index(min(distances))]
+    except:
+        object_clf = "None"
 
-    return objects_list, round(diff_time, 4)
+    print(object_clf)
+
+    # return objects_list[distances.index(min(distances))], round(diff_time, 4)
 
 img_object_clf(None)

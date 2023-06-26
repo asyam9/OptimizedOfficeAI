@@ -11,6 +11,11 @@ from tensorflow.keras.preprocessing import image
 from ultralytics import YOLO
 
 import time
+import math
+
+def calculate_distance(point):
+    x_centroid , y_centroid = 0.5, 0.5
+    return math.sqrt((x_centroid - point[0])**2 + (y_centroid - point[1])**2)
 
 # 이미지 도메인 분류 로직
 def img_domain_clf(img_url):
@@ -54,6 +59,8 @@ def img_object_clf(img_url):
     model = YOLO("C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/ai_models/best.pt")
     names = model.names
 
+    # 62f9a36ea3cea.jpg
+    # calculator186_gjB6pWv.jpg
     # 이미지 분류 수행
     start_time = time.time()
     result = model.predict(source=path)
@@ -61,13 +68,32 @@ def img_object_clf(img_url):
 
     diff_time = end_time - start_time
 
+    #오브젝트별 중심 거리 
+    distances = []
     objects_list = []
 
+    # result 내의 결과값들
     for r in result:
-        for c in r.boxes.cls:
-            objects_list.append(names[int(c)])
+        for box in r.boxes:
+            x1 = float(box.xyxyn[0][0])
+            y1 = float(box.xyxyn[0][1])
+            x2 = float(box.xyxyn[0][2])
+            y2 = float(box.xyxyn[0][3])
 
-    return objects_list, round(diff_time, 4)
+            x_mid , y_mid = ( x1 + x2 ) / 2 , ( y1 + y2 ) / 2
+            mid = [x_mid, y_mid]
+            distance = calculate_distance(mid)
+            distances.append(distance)
+
+            # class id 에 해당하는 이름 출력하기
+            objects_list.append(names[int(box.cls)])
+
+    try:
+        object_clf = objects_list[distances.index(min(distances))]
+    except:
+        object_clf = "None"
+
+    return object_clf, round(diff_time, 4)
 
 # 리뷰 조회 페이지 로직
 def index(request):
