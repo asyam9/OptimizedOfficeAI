@@ -165,6 +165,7 @@ def detail(request, post_id):
     return render(request, 'Reviews/review_detail.html', {'review':review})
 
 # 리뷰 수정페이지 로직
+@csrf_exempt
 def update(request, post_id):
     review = Review_Models.objects.get(id=post_id)
 
@@ -198,6 +199,7 @@ def update(request, post_id):
     return render(request, 'Reviews/review_upload.html', {'form':update_form, 'review':review})
 
 # 리뷰 삭제 페이지
+@csrf_exempt
 def delete(request, post_id):
     review = Review_Models.objects.get(id=post_id)
     review.delete()
