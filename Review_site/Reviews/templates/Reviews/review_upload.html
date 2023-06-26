@@ -1,7 +1,13 @@
 {% extends "Reviews/base_with_nav.html" %}
 {% load widget_tweaks %}
 
-{% block title %}Ol'reviews | Review_upload{% endblock title %}
+{% block title %} 
+  {% if review %}
+    리뷰 수정 | Ol'reviews
+  {% else %}
+    리뷰 작성 | Ol'reviews
+  {% endif %}
+{% endblock title %}
 
 {% block nav %}
 <li class="nav-item">
@@ -13,20 +19,8 @@
 {% endblock nav %}
 
 {% block content %}
-
-{% comment %} {% if form.errors %}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  {% for field, errors in form.errors.items %}
-  {% for error in errors %}
-    {{ error }}
-  {% endfor %}
-  {% endfor %}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{% endif %} {% endcomment %}
-
 <div class="container" style='width: 50%; margin-top:100px'>
-    <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
 
         <h5>리뷰 작성하기</h5>
