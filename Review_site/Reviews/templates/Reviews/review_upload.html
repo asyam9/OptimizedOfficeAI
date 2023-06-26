@@ -14,7 +14,7 @@
 
 {% block content %}
 
-{% if form.errors %}
+{% comment %} {% if form.errors %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   {% for field, errors in form.errors.items %}
   {% for error in errors %}
@@ -23,7 +23,7 @@
   {% endfor %}
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
-{% endif %}
+{% endif %} {% endcomment %}
 
 <div class="container" style='width: 50%; margin-top:100px'>
     <form method="POST" action="{% url 'upload' %}" enctype="multipart/form-data">
@@ -53,6 +53,16 @@
               </tr>
             </tbody>
           </table>
+          {% if form.errors %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {% for field, errors in form.errors.items %}
+              {% for error in errors %}
+                {{ error }}
+              {% endfor %}
+              {% endfor %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endif %}
         <div class="d-grid gap-2 col-6 mx-auto">
             <button type="submit" class="btn btn-outline-success">제출</button>
         </div>
