@@ -3,9 +3,48 @@ from ultralytics import YOLO
 import time
 import math
 
+import tensorflow as tf
+from tensorflow.keras.preprocessing import image
+
+FILE_PATH = "C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/media/review_images/notebook.png"
+
 def calculate_distance(point):
     x_centroid , y_centroid = 0.5, 0.5
     return math.sqrt((x_centroid - point[0])**2 + (y_centroid - point[1])**2)
+
+# 이미지 도메인 분류 로직
+def img_domain_clf(img_url=""):
+    # 이미지 경로 설정(받아온 url과 로컬 환경의 경로 합쳐주기)
+    path = FILE_PATH
+
+    # 이미지 불러오기
+    img = image.load_img(path, target_size=(224, 224))
+
+    # 이미지 전처리
+    img = image.img_to_array(img)
+    img = img / 255.0
+    img = tf.expand_dims(img, axis=0)
+
+    # AI 모델 로드
+    model = tf.keras.models.load_model('C:/Users/DaonWoori/OptimizedOfficeAI/Review_site//ai_models/CNN_Model_Dataset2.h5', compile=False)
+    
+    # 이미지 분류 수행
+    start_time = time.time()
+    prediction = model.predict(img)
+    end_time = time.time()
+
+    diff_time = end_time - start_time
+
+    # 분류 결과 반환 -> 수행 시간 소수점 4자리까지만 반환
+    result = prediction[0][0]
+    if result > 0.5:
+        domain = 'Office'
+    else:
+        domain = 'None Office'
+
+    print(domain)
+
+    return domain, round(diff_time, 4)
 
 # 이미지 클래스 분류 로직
 def img_object_clf(img_url):
@@ -15,12 +54,12 @@ def img_object_clf(img_url):
 
     print(names)
 
-
     # 62f9a36ea3cea.jpg
     # calculator186_gjB6pWv.jpg
     # 이미지 분류 수행
     start_time = time.time()
-    result = model.predict(source="C:/Users/DaonWoori/OptimizedOfficeAI/Review_site/media/review_images/calculator186_gjB6pWv.jpg")
+    result = model.predict(source=FILE_PATH)
+    # 이미지 분류 수행")e
     end_time = time.time()
 
     diff_time = end_time - start_time
@@ -55,3 +94,4 @@ def img_object_clf(img_url):
     # return objects_list[distances.index(min(distances))], round(diff_time, 4)
 
 img_object_clf(None)
+img_domain_clf()

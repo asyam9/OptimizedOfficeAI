@@ -57,8 +57,6 @@ def img_object_clf(img_url):
     # 이미지 경로 설정(받아온 url과 로컬 환경의 경로 합쳐주기)
     path = FILE_PATH + img_url
 
-    # 수정
-
     # 모델 불러오기 
     model = YOLO(FILE_PATH + "/ai_models/best.pt")
     names = model.names
