@@ -1,6 +1,7 @@
 ### Django -> Review_site
 
 Review_site/media/
+Review_site/ai_models/
 Review_site/db.sqlite3
 Review_site/db.sqlite3-journal
 
