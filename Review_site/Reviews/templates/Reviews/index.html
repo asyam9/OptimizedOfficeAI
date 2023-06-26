@@ -3,16 +3,16 @@
 {% block content %}
   <div class="container" style='width: 100%; margin-top:100px'>
     <h5>리뷰 목록</h5>
+
+    <!--정렬 기능 구현-->
     <select id="sort-select" onchange="location = this.value;">
       <option class='' value='/'>정렬 기준</option>
       <option class="sort-date" value="?sort=date-new">최신 순</option>
       <option class="sort-date" value="?sort=date-old">오래된 순</option>
       <option class="sort-likes" value="?sort=likes-high">별점 높은 순</option>
-      <option class="sort-likes" value="?sort=likes-loew">별점 낮은 순</option>
-      {% comment %} {% if user.is_authenticated %}
-      <option class="sort-mypost" value="?sort=mypost">내가쓴글</option>
-      {% endif %} {% endcomment %}
+      <option class="sort-likes" value="?sort=likes-low">별점 낮은 순</option>
     </select>
+
     <hr>
 
     <div class="container">
@@ -23,6 +23,7 @@
             <img src="{{ review.imgfile.url }}" class="card-img-top" style="height: 250px">
             <div class="card-body">
               <a href={% url "detail" review.id %} style="text-decoration-line: none; color: black;"><h5 class="card-title">{{ review.title }}</h5></a>
+              <p class="card-text">{{ review.get_ratings_display }}</p>
               <p class="card-text">{{ review.dt_created|date:"Y-m-d" }}</p>
             </div>
           </div>
@@ -36,21 +37,21 @@
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       {% if page_obj.has_previous %} <!--이전 페이지가 존재하는 경우 First 버튼 활성화-->
-        <li class="page-item"><a class="page-link" href="?page=1">First</a></li> <!--버튼 클릭시 첫번째 페이지로 이동-->
+        <li class="page-item"><a class="page-link" href="?page=1&sort={{sort}}">First</a></li> <!--버튼 클릭시 첫번째 페이지로 이동-->
       {% endif %}
 
       {% for page in paginator.page_range %} <!--page 개수만큼 itertor ex) [1, 2, 3, 4] -->
         {% if page == page_obj.number %} <!--Page.number: 해당 페이지의 페이지번호를 의미 -->
-          <li class="page-item"><a class="page-link active" href="?page={{page}}">{{ page }}</a></li>
+          <li class="page-item"><a class="page-link active" href="?page={{page}}&sort={{sort}}">{{ page }}</a></li>
         {% else %}
-          <li class="page-item"><a class="page-link" href="?page={{page}}">{{ page }}</a></li>
+          <li class="page-item"><a class="page-link" href="?page={{page}}&sort={{sort}}">{{ page }}</a></li>
         {% endif %}
       {% endfor %}
 
       {% if page_obj.has_next %} <!--다음 페이지가 존재하는 경우 Last 버튼 활성화-->
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.end_index }}">Last</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ page_obj.end_index }}&sort={{sort}}">Last</a></li>
       {% endif %}
     </ul>
-  </nav>
+  </nav> 
 
 {% endblock content %}

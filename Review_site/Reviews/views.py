@@ -71,27 +71,31 @@ def img_object_clf(img_url):
 
 # 리뷰 조회 페이지 로직
 def index(request):
-        sort = request.GET.get('sort', None)
+    #### 정렬 기능 
+    # sort라는 이름으로 들어온 값 가져오기(값이 없다면 None)
+    sort = request.GET.get('sort', None)
 
-        if sort == 'date-new':
-            reviews = Review_Models.objects.order_by('-dt_created')
-        elif sort== 'date-old':
-            reviews = Review_Models.objects.order_by('dt_created')
-        elif sort == 'likes-high':
-            reviews = Review_Models.objects.order_by('-ratings')
-        elif sort == 'likes-low':
-            reviews = Review_Models.objects.order_by('ratings')
-        else:
-            # 데이터 전체 불러오기
-            reviews = Review_Models.objects.all()
+    # 날짜와 관련한 정렬
+    if sort == 'date-new':
+        reviews = Review_Models.objects.all().order_by('-dt_created')
+    elif sort== 'date-old':
+        reviews = Review_Models.objects.all().order_by('dt_created')
+    # 별점과 관련한 정렬
+    elif sort == 'likes-high':
+        reviews = Review_Models.objects.all().order_by('-ratings')
+    elif sort == 'likes-low':
+        reviews = Review_Models.objects.order_by('ratings')
+    # 정렬 없을 떄
+    else:
+        reviews = Review_Models.objects.all().order_by('-dt_created') # 데이터 전체 불러오기
 
-        # paginator 객체 생성(queryset, 한 페이지에서 보여줄 포스트 개수)
-        paginator = Paginator(reviews, 9)
-        page = request.GET.get('page') # page라는 명으로 들러온 값을 가져오겠다(ex) ~/?page=4
-        page_obj = paginator.get_page(page) # 페이지가 숫자가 아닌 경우 첫 페이지를 반환, 음수나 범위를 벗어난 경우 마지막 페이지 반환 -> Page 객체 반환
+    # paginator 객체 생성(queryset, 한 페이지에서 보여줄 포스트 개수)
+    paginator = Paginator(reviews, 9)
+    page = request.GET.get('page', None) # page라는 명으로 들러온 값을 가져오겠다(ex) ~/?page=4
+    page_obj = paginator.get_page(page) # 페이지가 숫자가 아닌 경우 첫 페이지를 반환, 음수나 범위를 벗어난 경우 마지막 페이지 반환 -> Page 객체 반환
 
-        # return render(request, 'Reviews/index.html', {'reviews':reviews})
-        return render(request, 'Reviews/index.html', {'page_obj':page_obj, 'paginator':paginator})
+    # return render(request, 'Reviews/index.html', {'reviews':reviews})
+    return render(request, 'Reviews/index.html', {'page_obj':page_obj, 'paginator':paginator, 'sort':sort})
 
 # 리뷰 작성 페이지 로직
 @csrf_exempt
