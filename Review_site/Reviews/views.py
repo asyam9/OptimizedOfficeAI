@@ -97,6 +97,7 @@ def img_object_clf(img_url):
 
     return object_clf, round(diff_time, 4)
 
+# Class 매핑 딕셔너리
 PRODUCT_MAPPING = {
     "back_pack": "Back Pack",
     "bike": "Bike",
@@ -130,6 +131,7 @@ PRODUCT_MAPPING = {
     "trash_can": "Trash Can"
 }
 
+# Value 에서 딕셔너리 key 찾기
 def get_key_by_value(dict, value):
     for key, val in dict.items():
         if val == value:
@@ -139,7 +141,10 @@ def get_key_by_value(dict, value):
 # 리뷰 조회 페이지 로직
 def index(request):
     #### 정렬 기능 
-    # sort라는 이름으로 들어온 값 가져오기(값이 없다면 None)
+    # sort GET (값이 없다면 '최신 순')
+    # domain GET (값이 없다면 'ALL')
+    # product GET (값이 없다면 'ALL')
+    # star GET (값이 없다면 'ALL')
     sort = request.GET.get('sort', '최신 순')
     domain = request.GET.get('domain', 'ALL')
     product = request.GET.get('product', 'ALL')
@@ -148,33 +153,31 @@ def index(request):
     # 날짜와 관련한 정렬
     if sort == '최신 순':
         reviews = Review_Models.objects.all().order_by('-dt_created')
-    elif sort== 'date-old':
-        reviews = Review_Models.objects.all().order_by('dt_created')
     # 별점과 관련한 정렬
     elif sort == '별점 순':
         reviews = Review_Models.objects.all().order_by('-ratings')
-    elif sort == 'likes-low':
-        reviews = Review_Models.objects.order_by('ratings')
     # 정렬 없을 떄
     else:
         reviews = Review_Models.objects.all().order_by('-dt_created') # 데이터 전체 불러오기
 
-    # Apply the filters
+    # 도메인 필터
     if domain is not None and domain != 'ALL':
         reviews = reviews.filter(domain_clf=domain)
+    # 제품 필터
     if product is not None and product != 'ALL':
         mapped_product = get_key_by_value(PRODUCT_MAPPING, product)  
         reviews = reviews.filter(objects_clf__contains=[mapped_product])
+    # 별점 필터
     if star is not None and star != 'ALL':
         reviews = reviews.filter(ratings=star)
     
     # paginator 객체 생성(queryset, 한 페이지에서 보여줄 포스트 개수)
     paginator = Paginator(reviews, 9)
-    page = request.GET.get('page', None) # page라는 명으로 들러온 값을 가져오겠다(ex) ~/?page=4
+    page = request.GET.get('page', 1) # page라는 명으로 들러온 값을 가져오겠다(ex) ~/?page=4
     page_obj = paginator.get_page(page) # 페이지가 숫자가 아닌 경우 첫 페이지를 반환, 음수나 범위를 벗어난 경우 마지막 페이지 반환 -> Page 객체 반환
 
     # return render(request, 'Reviews/index.html', {'reviews':reviews})
-    return render(request, 'Reviews/index.html', {'page_obj':page_obj, 'paginator':paginator, 'sort':sort, 'domain':domain, 'product':product, 'star':star, 'PRODUCT_MAPPING':PRODUCT_MAPPING})
+    return render(request, 'Reviews/index.html', {'page_obj':page_obj,'page':page, 'paginator':paginator, 'sort':sort, 'domain':domain, 'product':product, 'star':star, 'PRODUCT_MAPPING':PRODUCT_MAPPING})
 
 # 리뷰 작성 페이지 로직
 @csrf_exempt
