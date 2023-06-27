@@ -1,4 +1,6 @@
 from django.db import models
+from django import forms
+from django.core.exceptions import ValidationError
 from django.core.validators import validate_image_file_extension, FileExtensionValidator
 
 imgvalidator = FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'], message='다음과 같은 형식의 확장자만 사용 가능합니다(jpg, png, jpeg)')
@@ -17,13 +19,13 @@ class Review_Models(models.Model):
         7. objects: 클래스 분류 결과
         https://stackoverflow.com/questions/1110153/what-is-the-most-efficient-way-to-store-a-list-in-the-django-models
     """
-    RATINGS_CHOICES = {
-        (1, "★"),
-        (2, "★★"),
-        (3, "★★★"),
+    RATINGS_CHOICES = (
+        (5, "★★★★★"),
         (4, "★★★★"),
-        (5, "★★★★★")
-    } # (데이터베이스에 저장되는 값, 웹에 표시되는 값)
+        (3, "★★★"),
+        (2, "★★"),
+        (1, "★")
+     ) # (데이터베이스에 저장되는 값, 웹에 표시되는 값)
 
     title = models.CharField(max_length=30)
     ratings = models.IntegerField(choices=RATINGS_CHOICES)
