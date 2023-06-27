@@ -61,8 +61,6 @@ def img_object_clf(img_url):
     model = YOLO(FILE_PATH + "/ai_models/best.pt")
     names = model.names
 
-    # 62f9a36ea3cea.jpg
-    # calculator186_gjB6pWv.jpg
     # 이미지 분류 수행
     start_time = time.time()
     result = model.predict(source=path)
@@ -90,12 +88,12 @@ def img_object_clf(img_url):
             # class id 에 해당하는 이름 출력하기
             objects_list.append(names[int(box.cls)])
 
-    try:
-        object_clf = objects_list[distances.index(min(distances))]
-    except:
-        object_clf = "None"
+    # try:
+    #     object_clf = objects_list[distances.index(min(distances))]
+    # except:
+    #     object_clf = "None"
 
-    return object_clf, round(diff_time, 4)
+    return objects_list, round(diff_time, 4)
 
 # Class 매핑 딕셔너리
 PRODUCT_MAPPING = {
@@ -166,7 +164,7 @@ def index(request):
     # 제품 필터
     if product is not None and product != 'ALL':
         mapped_product = get_key_by_value(PRODUCT_MAPPING, product)  
-        reviews = reviews.filter(objects_clf__contains=[mapped_product])
+        reviews = reviews.filter(objects_clf__contains=mapped_product)
     # 별점 필터
     if star is not None and star != 'ALL':
         reviews = reviews.filter(ratings=star)
@@ -176,7 +174,6 @@ def index(request):
     page = request.GET.get('page', 1) # page라는 명으로 들러온 값을 가져오겠다(ex) ~/?page=4
     page_obj = paginator.get_page(page) # 페이지가 숫자가 아닌 경우 첫 페이지를 반환, 음수나 범위를 벗어난 경우 마지막 페이지 반환 -> Page 객체 반환
 
-    # return render(request, 'Reviews/index.html', {'reviews':reviews})
     return render(request, 'Reviews/index.html', {'page_obj':page_obj,'page':page, 'paginator':paginator, 'sort':sort, 'domain':domain, 'product':product, 'star':star, 'PRODUCT_MAPPING':PRODUCT_MAPPING})
 
 # 리뷰 작성 페이지 로직

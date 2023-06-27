@@ -38,7 +38,7 @@
               </tr>
               <tr>
                 <th scope="row">별점*</th>
-                <td> {{ form.ratings|add_class:"form-select"|attr:"id:floatingSelect"|attr:"aria-label:Floating label select example" }} </td>
+                <td> {{ form.ratings |add_class:"form-select"|attr:"id:floatingSelect"|attr:"aria-label:Floating label select example" }} </td>
               </tr>
               <tr>
                 <th scope="row">내용*</th>
@@ -46,7 +46,7 @@
               </tr>
               <tr>
                 <th scope="row">리뷰 사진*</th>
-                <td>  {{ form.imgfile|add_class:"form-control"|attr:"id:formFile" }}  </td>
+                <td>  {{ form.imgfile|add_class:"form-control"|attr:"id:formFile" }} ※ 업로드 가능한 이미지 확장자: .jpg / .png / .jpeg  </td>
               </tr>
             </tbody>
           </table>
@@ -61,20 +61,20 @@
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           {% endif %}
-          <div class="d-grid gap-2 col-6 mx-auto" style='float:left; padding: 0 10px'>
+          <div class="d-grid gap-2 col-6 mx-auto" style='float: left; width: 400px;'>
             <button type="submit" class="btn btn-outline-success">제출</button>
           </div>
     </form>
     <!--버튼 구현-->
-    <div class="d-grid gap-2 col-6 mx-auto" style='float:right; width: 10%'>
+    <div class="d-grid gap-2 col-6 mx-auto" style='float: left; padding: 0 30px;'>
       {% if review %}
-      <a href={% url "detail" review.id %}>
+        <a href={% url "detail" review.id %}>
       {% else %}
-      <a href={% url "index" %}>
+        <a href={% url "index" %}>
       {% endif %}
-      <button type="submit" class="btn btn-outline-secondary">취소</button>
+        <button type="submit" class="btn btn-outline-secondary" style="width: 400px;">취소</button>
       </a>
-  </div>
+    </div>
 </div>
 
 {% endblock content %}

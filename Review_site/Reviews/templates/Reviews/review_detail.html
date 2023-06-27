@@ -16,7 +16,7 @@
         </a>
       </div> {% endcomment %}
 
-      <date class="date">{{ review.dt_created|date:"Y-m-d" }}</date>
+      <date class="date">{{ review.dt_created|date:"Y-m-d H:i" }}</date>
 
       <div class="review-rating">
             <span class="cp-stars">{{ review.get_ratings_display }}</span>
@@ -35,11 +35,13 @@
 
   <!--버튼 구현-->
   <!--목록으로 이동-->
-  <div style="margin-bottom: 50px; float: left; width: 33%;"><a href={% url "index" %} style="text-decoration-line: none; color: black;"> ◁ 목록으로 </a></div>
+  <div style="margin-bottom: 50px; float: left; width: 33%;">
+    <a href={% url "index" %} style="text-decoration-line: none; color: black; margin-left: 15px;"> < 목록으로 </a>
+  </div>
   
   <!--삭제 버튼-->
   <!-- Button trigger modal -->
-  <button type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right">삭제</button>
+  <button type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right; margin-right: 15px;">삭제</button>
 
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -69,11 +71,13 @@
 
 
 {% block script %}
-const myModal = document.getElementById('myModal')
-const myInput = document.getElementById('myInput')
+<script type="text/javascript">
+  const myModal = document.getElementById('myModal')
+  const myInput = document.getElementById('myInput')
 
-myModal.addEventListener('shown.bs.modal', () => {
-  myInput.focus()
-})
+  myModal.addEventListener('shown.bs.modal', () => {
+    myInput.focus()
+  })
+</script>
 {% endblock script %}
 
