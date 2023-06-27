@@ -47,11 +47,12 @@
           </ul>
         </div>
         
-        <button id="filterButton" type="button" class="btn btn-primary col-12 col-md-6 col-lg-2 btn_filter" onclick="filter(this)">확인</button>
+        <button id="filterButton" type="button" class="btn btn-primary col-12 col-md-6 col-lg-2 btn_filter" onclick="filter({{page}})">확인</button>
       </div>
     </div>
     <!-- END 드랍다운리스트 -->
 
+    <!-- START 뷰 카드 -->
     <div class="container">
       <div class="row">
         {% for review in page_obj %}
@@ -69,50 +70,52 @@
       </div>
     </div>
   </div>
+  <!-- END 뷰 카드 -->
 
-  <!--paginator 기능 구현-->
+  <!-- START paginator -->
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
       {% if page_obj.has_previous %} <!--이전 페이지가 존재하는 경우 First 버튼 활성화-->
-        <li class="page-item"><a class="page-link" href="?page=1&sort={{sort}}">First</a></li> <!--버튼 클릭시 첫번째 페이지로 이동-->
+        <li class="page-item"><a class="page-link" onclick="filter('1')">First</a></li> <!--버튼 클릭시 첫번째 페이지로 이동-->
       {% endif %}
 
       {% for page in paginator.page_range %} <!--page 개수만큼 itertor ex) [1, 2, 3, 4] -->
         {% if page == page_obj.number %} <!--Page.number: 해당 페이지의 페이지번호를 의미 -->
-          <li class="page-item"><a class="page-link active" href="?page={{page}}&sort={{sort}}">{{ page }}</a></li>
+          <li class="page-item"><a class="page-link active" onclick="filter({{page}})">{{ page }}</a></li>
         {% else %}
-          <li class="page-item"><a class="page-link" href="?page={{page}}&sort={{sort}}">{{ page }}</a></li>
+          <li class="page-item"><a class="page-link" onclick="filter({{page}})">{{ page }}</a></li>
         {% endif %}
       {% endfor %}
 
       {% if page_obj.has_next %} <!--다음 페이지가 존재하는 경우 Last 버튼 활성화-->
-        <li class="page-item"><a class="page-link" href="?page={{ page_obj.end_index }}&sort={{sort}}">Last</a></li>
+        <li class="page-item"><a class="page-link" onclick="filter('{{ page_obj.end_index }}')">Last</a></li>
       {% endif %}
     </ul>
   </nav> 
+  <!-- END paginator -->
 
   <script>
-    
     function changeText(buttonId, element) {
       var button = document.getElementById(buttonId);
       button.innerText = element.innerText;
     }
 
-    function filter() {
+    function filter(page) {
       var domain = document.getElementById('ddb_domain').innerText;
       var product = document.getElementById('ddb_product').innerText;
       var star = document.getElementById('ddb_star').innerText;
       var sort = document.getElementById('ddb_sort').innerText;
-    
+      var page = page;
+      
       // Build the URL with query parameters
       var url = "/reviews?domain=" + encodeURIComponent(domain)
         + "&product=" + encodeURIComponent(product)
         + "&star=" + encodeURIComponent(star)
-        + "&sort=" + encodeURIComponent(sort);
-    
+        + "&sort=" + encodeURIComponent(sort)
+        + "&page=" + encodeURIComponent(page);
+
       // Redirect to the new URL
       window.location.href = url;
     }
-
   </script> 
 {% endblock content %}
