@@ -1,0 +1,25 @@
+{% extends "Reviews/base_with_nav.html" %}
+
+{% block content %}
+  <div class="container" style='width: 100%; margin-top:100px'>
+    <h5>내가 본 리뷰 목록</h5>
+    <hr>
+
+    <div class="container">
+      <div class="row">
+        {% for review in viewed_reviews %}
+        <div class="col-sm" style="padding: 12px">
+          <div class="card" style="width: 400px;">
+            <img src="{{ review.imgfile.url }}" class="card-img-top" style="height: 250px">
+            <div class="card-body">
+              <a href={% url "detail" review.id %} style="text-decoration-line: none; color: black;"><h5 class="card-title">{{ review.title }}</h5></a>
+              <p class="card-text">{{ review.get_ratings_display }}</p>
+              <p class="card-text">{{ review.dt_created|date:"Y-m-d" }}</p>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}
