@@ -196,6 +196,7 @@ def upload(request):
 
         if form.is_valid(): # form이 유효하다면,
             post = form.save(commit=False) # form 데이터 저장(임시 저장)
+            post.user = request.user
             post.save() # form 데이터를 DB에 저장
 
             ### 데이터 분류 로직 ###
@@ -281,11 +282,11 @@ def login_view(request):
     elif request.method == 'POST':
         form = LoginForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
             # 이메일과 비밀번호를 사용하여 인증을 수행
-            user = authenticate(request, username=email, password=password)
+            user = authenticate(request, username=username, password=password)
 
             if user is not None:
                 # 인증에 성공한 경우, 로그인 처리
@@ -303,7 +304,7 @@ def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
         if form.is_valid():
-            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
             password = form.cleaned_data['password']
             confirm_password = form.cleaned_data['confirm_password']
 
@@ -313,13 +314,13 @@ def register(request):
 
             if password == confirm_password:
                 try:
-                    User.objects.get(email=email)
-                    message = '이미 사용 중인 이메일입니다.'
+                    User.objects.get(username=username)
+                    message = '이미 사용 중인 아이디입니다.'
                     return render(request, 'Reviews/register.html', {'form': form, 'message': message})
                 except User.DoesNotExist:
                     user = User(
-                        email=email,
-                        username=email,
+                       # email=email,
+                        username=username,
                         password=make_password(password)
                     )
                     user.save()

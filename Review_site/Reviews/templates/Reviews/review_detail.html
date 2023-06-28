@@ -10,11 +10,9 @@
     <div class="review-info">
       <h1 class="title">{{ review.title }}</h1>
 
-      {% comment %} <div class="author">
-        <a class="review-author" href="#">
-          <span>유저1</span>
-        </a>
-      </div> {% endcomment %}
+     <div class="author">
+          <span>{{ review.user }}</span>
+      </div> 
 
       <date class="date">{{ review.dt_created|date:"Y-m-d H:i" }}</date>
 
@@ -38,7 +36,8 @@
   <div style="margin-bottom: 50px; float: left; width: 33%;">
     <a href={% url "index" %} style="text-decoration-line: none; color: black; margin-left: 15px;"> < 목록으로 </a>
   </div>
-  
+
+  {% if review.user == user%}
   <!--삭제 버튼-->
   <!-- Button trigger modal -->
   <button type="submit" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#exampleModal" style="float: right; margin-right: 15px;">삭제</button>
@@ -66,6 +65,7 @@
   <a href={% url "edit" review.id %} style="float: right; padding: 0 10px">
     <button class="btn btn-outline-success" type="submit">수정</button>
   </a>
+  {% endif %}
 </main> 
 {% endblock content %}
 

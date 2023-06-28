@@ -33,3 +33,4 @@ class Review_Models(models.Model):
     imgfile = models.ImageField(upload_to='review_images/', validators=[validate_image_file_extension, imgvalidator])
     domain_clf = models.CharField(max_length=15)
     objects_clf = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

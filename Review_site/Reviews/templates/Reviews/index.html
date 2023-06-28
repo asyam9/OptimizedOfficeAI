@@ -62,6 +62,7 @@
               <a href={% url "detail" review.id %}><img src="{{ review.imgfile.url }}" class="card-img-top" style="height: 250px;object-fit:cover; "></a>
               <div class="card-body">
                 <a href={% url "detail" review.id %} style="text-decoration-line: none; color: black;"><h5 class="card-title">{{ review.title }}</h5></a>
+                <p class="card-text">{{ review.user}}</p>
                 <p class="card-text">{{ review.get_ratings_display }}</p>
                 <p class="card-text">{{ review.dt_created|date:"Y-m-d" }}</p>
               </div>
