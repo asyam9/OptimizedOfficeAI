@@ -55,7 +55,7 @@
     <!-- START 뷰 카드 -->
     <div class="container">
       <div class="row">
-        {% if page_obj %}
+        {% if page_obj %} <!--출력할 데이터가 있는 경우-->
           {% for review in page_obj %}
           <div class="col-12 col-md-6 col-lg-4" style="padding: 12px;">
             <div class="card" style="width: 400px;">
@@ -90,7 +90,8 @@
             </ul>
           </nav> 
           <!-- END paginator -->
-        {% else %}
+
+        {% else %} <!--출력할 데이터가 없는 경우-->
         <div class='pop-up' style='padding-top: 30px'>
           <div class="alert alert-light d-flex align-items-center" role="alert" style='padding-left: 500px'>
             현재 선택하신 상품에 대한 리뷰가 존재하지 않습니다.
@@ -101,51 +102,31 @@
     </div>
   </div>
   <!-- END 뷰 카드 -->
-
-  {% comment %} <!-- START paginator -->
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      {% if page_obj.has_previous %} <!--이전 페이지가 존재하는 경우 First 버튼 활성화-->
-        <li class="page-item"><a class="page-link" onclick="filter('1')">First</a></li> <!--버튼 클릭시 첫번째 페이지로 이동-->
-      {% endif %}
-
-      {% for page in paginator.page_range %} <!--page 개수만큼 itertor ex) [1, 2, 3, 4] -->
-        {% if page == page_obj.number %} <!--Page.number: 해당 페이지의 페이지번호를 의미 -->
-          <li class="page-item"><a class="page-link active" onclick="filter({{page}})">{{ page }}</a></li>
-        {% else %}
-          <li class="page-item"><a class="page-link" onclick="filter({{page}})">{{ page }}</a></li>
-        {% endif %}
-      {% endfor %}
-
-      {% if page_obj.has_next %} <!--다음 페이지가 존재하는 경우 Last 버튼 활성화-->
-        <li class="page-item"><a class="page-link" onclick="filter('{{ page_obj.end_index }}')">Last</a></li>
-      {% endif %}
-    </ul>
-  </nav> 
-  <!-- END paginator --> {% endcomment %}
-
-  <script>
-    function changeText(buttonId, element) {
-      var button = document.getElementById(buttonId);
-      button.innerText = element.innerText;
-    }
-
-    function filter(page) {
-      var domain = document.getElementById('ddb_domain').innerText;
-      var product = document.getElementById('ddb_product').innerText;
-      var star = document.getElementById('ddb_star').innerText;
-      var sort = document.getElementById('ddb_sort').innerText;
-      var page = page;
-      
-      // Build the URL with query parameters
-      var url = "/reviews?domain=" + encodeURIComponent(domain)
-        + "&product=" + encodeURIComponent(product)
-        + "&star=" + encodeURIComponent(star)
-        + "&sort=" + encodeURIComponent(sort)
-        + "&page=" + encodeURIComponent(page);
-
-      // Redirect to the new URL
-      window.location.href = url;
-    }
-  </script> 
 {% endblock content %}
+
+{% block script %}
+<script>
+  function changeText(buttonId, element) {
+    var button = document.getElementById(buttonId);
+    button.innerText = element.innerText;
+  }
+
+  function filter(page) {
+    var domain = document.getElementById('ddb_domain').innerText;
+    var product = document.getElementById('ddb_product').innerText;
+    var star = document.getElementById('ddb_star').innerText;
+    var sort = document.getElementById('ddb_sort').innerText;
+    var page = page;
+    
+    // Build the URL with query parameters
+    var url = "/reviews?domain=" + encodeURIComponent(domain)
+      + "&product=" + encodeURIComponent(product)
+      + "&star=" + encodeURIComponent(star)
+      + "&sort=" + encodeURIComponent(sort)
+      + "&page=" + encodeURIComponent(page);
+
+    // Redirect to the new URL
+    window.location.href = url;
+  }
+</script> 
+{% endblock script %}
