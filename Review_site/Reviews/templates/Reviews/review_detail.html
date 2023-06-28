@@ -24,9 +24,12 @@
 
     <div class="content">
       <img class="thumb" src={{ review.imgfile.url }}>
-      <p class='domain'># {{ review.domain_clf }}</p>
-      <p class='domain'># {{ review.objects_clf }}</p>
       <p class="content">{{ review.content }}</p>
+      {% if review.objects_clf%}
+        {% for object in review.get_objects_list %}
+          # {{ object|slice:"1:-1" }}
+        {% endfor %}
+      {% endif %}
     </div>
     <hr>
   </article>

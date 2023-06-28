@@ -8,7 +8,7 @@ imgvalidator = FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'],
 class Review_Models(models.Model):
     """
         모델 관련 필드 정의
-        
+        []
         1. title: 리뷰 제목
         2. ratings: 별점
         3. content: 리뷰 내용
@@ -34,3 +34,8 @@ class Review_Models(models.Model):
     domain_clf = models.CharField(max_length=15)
     objects_clf = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def get_objects_list(self):
+        if self.objects_clf:
+            return self.objects_clf[1:-1].split(', ')
+        return []
