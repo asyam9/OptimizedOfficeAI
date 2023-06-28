@@ -7,3 +7,20 @@ class FileUploadForm(ModelForm):
     class Meta:
         model = Review_Models # 사용할 모델 불러오기
         fields = ['title', 'ratings', 'content', 'imgfile'] # 모델 필드 중 사용자의 입력이 필요한 필드 지정
+
+# 회원 가입과 관련해 사용자로부터 얻는 데이터에 대한 form -> 이메일, 패스워드
+class RegistrationForm(forms.Form):
+  
+    email = forms.EmailField(label='E-mail')
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
+
+# 로그인과 관련해 사용자로부터 얻는 데이터에 대한 form -> 이메일, 패스워드 
+class LoginForm(forms.Form):
+
+    email = forms.EmailField(label='E-mail')
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+
+class DeleteAccountForm(forms.Form):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)

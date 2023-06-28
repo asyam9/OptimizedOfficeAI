@@ -1,7 +1,6 @@
 from django.db import models
-from django import forms
-from django.core.exceptions import ValidationError
 from django.core.validators import validate_image_file_extension, FileExtensionValidator
+from django.contrib.auth.models import User
 
 imgvalidator = FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'], message='다음과 같은 형식의 확장자만 사용 가능합니다(jpg, png, jpeg)')
 

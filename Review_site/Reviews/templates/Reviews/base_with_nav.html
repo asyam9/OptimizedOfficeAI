@@ -18,8 +18,21 @@
             </li>
           {% endblock nav %}
         </ul>
-        
-        <button class="btn btn-outline-success" type="submit">로그인</button>
+
+        {% if user.is_authenticated %}
+          <div class="dropdown">
+            <button class="btn btn-outline-success dropdown-toggle" type="button" id="myPageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              마이페이지
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="myPageDropdown">
+              <li><a class="dropdown-item" href={% url 'deleteaccount' %}>회원 탈퇴</a></li>
+              <li><a class="dropdown-item" href={% url 'logout' %}>로그아웃</a></li>
+              <!-- 다른 마이페이지 관련 메뉴 추가 -->
+            </ul>
+          </div>
+        {% else %}
+          <a class="btn btn-outline-success" href={% url "login" %}>로그인</a>
+        {% endif %}
       </div>
     </div>
   </nav>

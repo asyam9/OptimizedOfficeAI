@@ -3,7 +3,16 @@ from django.views.generic import ListView
 from django.views.decorators.csrf import csrf_exempt
 from django.core.paginator import Paginator
 from Reviews.models import Review_Models
-from .forms import FileUploadForm
+from .forms import FileUploadForm, RegistrationForm, LoginForm, DeleteAccountForm
+
+# 로그인 및 회원가입에 관한 모듈들 
+from .models import User
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
 
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image
@@ -258,3 +267,96 @@ def delete(request, post_id):
     review.delete()
 
     return redirect('index')
+
+# 로그인 관련 함수 정의
+@csrf_exempt
+def login_view(request):
+
+    # Base_with_nav_html에 있는 상단 로그인 버튼을 클릭하는 경우, 즉 요청이 Post가 아닌 경우 
+    # Login 관련 html로 렌더링
+    if request.method =='GET':
+        form = LoginForm()
+        return render(request, 'Reviews/login.html', {'form': form})
+    
+    elif request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+
+            # 이메일과 비밀번호를 사용하여 인증을 수행
+            user = authenticate(request, username=email, password=password)
+
+            if user is not None:
+                # 인증에 성공한 경우, 로그인 처리
+                login(request, user)
+                return redirect('index')  # 로그인 후 이동할 페이지로 변경
+            else:
+                message = '유효하지 않은 이메일 또는 비밀번호입니다.'
+                return render(request, 'Reviews/login.html', {'form': form, 'message': message})
+        else:
+            return render(request, 'Reviews/login.html', {'form': form})
+
+# 회원 가입에 관한 함수 정의
+@csrf_exempt
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            confirm_password = form.cleaned_data['confirm_password']
+
+            if password != confirm_password:
+                message = '비밀번호가 일치하지 않습니다.'
+                return render(request, 'Reviews/register.html', {'form': form, 'message': message})
+
+            if password == confirm_password:
+                try:
+                    User.objects.get(email=email)
+                    message = '이미 사용 중인 이메일입니다.'
+                    return render(request, 'Reviews/register.html', {'form': form, 'message': message})
+                except User.DoesNotExist:
+                    user = User(
+                        email=email,
+                        username=email,
+                        password=make_password(password)
+                    )
+                    user.save()
+                    message = '회원가입이 완료되었습니다.'
+                    return render(request, 'Reviews/register.html', {'form': form, 'message': message})
+        
+    elif request.method == 'GET':
+        form = RegistrationForm()
+    
+    return render(request, 'Reviews/register.html', {'form': form})
+
+# 회원 탈퇴에 관한 함수 정의
+@csrf_exempt
+@login_required
+def deleteaccount(request):
+    # form = DeleteAccountForm()
+
+    if request.method == 'POST':
+        user = request.user
+        password = request.POST['password']
+
+        # 비밀번호 확인 절차
+        if user.check_password(password):
+            # 사용자 계정을 삭제한 후 로그아웃 처리
+            user.delete()
+            logout(request)
+            message = '회원 탈퇴가 완료되었습니다.'
+            return render(request, 'Reviews/deleteaccount.html', {'message':message})
+        
+        else:   
+            message = '비밀 번호가 올바르지 않습니다.'
+            return render(request, 'Reviews/deleteaccount.html', {'message':message})
+                  
+    if request.method == 'GET':
+        return render(request, 'Reviews/deleteaccount.html')
+
+@csrf_exempt
+def logout_view(request):
+    logout(request)  # 로그아웃 실행
+    return redirect('index') 
