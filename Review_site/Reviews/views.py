@@ -104,8 +104,9 @@ def img_object_clf(img_url):
             distance = calculate_distance(mid)
             distances.append(distance)
 
-            # class id 에 해당하는 이름 출력하기
-            objects_list.append(names[int(box.cls)])
+            # class id 에 해당하는 이름 리스트에 추가(리스트 안에 없는 경우에만)
+            if names[int(box.cls)] not in objects_list:
+                objects_list.append(names[int(box.cls)])
 
     # try:
     #     object_clf = objects_list[distances.index(min(distances))]
@@ -180,6 +181,8 @@ def index(request):
     # 별점과 관련한 정렬
     elif sort == '별점높은순':
         reviews = Review_Models.objects.all().order_by('-ratings', '-dt_created')
+    elif sort == '별점낮은순':
+        reviews = Review_Models.objects.all().order_by('ratings', '-dt_created')
     # 정렬 없을 떄
     else:
         reviews = Review_Models.objects.all().order_by('-dt_created') # 데이터 전체 불러오기

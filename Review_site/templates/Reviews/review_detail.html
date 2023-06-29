@@ -24,7 +24,7 @@
 
     <div class="content">
       <img class="thumb" src={{ review.imgfile.url }}>
-      <p class="content">{{ review.content }}</p>
+      <p class="content" style='word-break: break-all;'>{{ review.content }}</p>
       {% if review.objects_clf%}
         {% for object in review.get_objects_list %}
           # {{ object|slice:"1:-1" }}

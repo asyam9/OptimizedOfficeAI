@@ -42,7 +42,6 @@
     {% endif %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-
         <h5>리뷰 작성하기</h5>
         (* 표시 필수 입력)
         <hr>
@@ -59,7 +58,7 @@
               </tr>
               <tr>
                 <th scope="row">내용*</th>
-                <td>  {{ form.content|add_class:"form-control"|attr:"id:floatingTextarea2"|attr:"placeholder:리뷰 내용을 작성하세요"|attr:"style:height: 150px" }}  </td>
+                <td  style="word-break:break-all">  {{ form.content|add_class:"form-control"|attr:"id:floatingTextarea2"|attr:"id:floatingTextarea2"|attr:"style:height: 150px" }}  </td>
               </tr>
               <tr>
                 <th scope="row">리뷰 사진*</th>
@@ -102,3 +101,10 @@
 </div>
 
 {% endblock content %}
+
+{% block script %}
+<script>
+  const textarea = document.getElementById('floatingTextarea2');
+  textarea.placeholder = `최대 1000글자까지 입력 가능. 무분별한 욕설, 비난, 리뷰와 관계없는 내용 등의 경우 관리자에 의해 경고없이 삭제될 수 있습니다.`;
+</script>
+{% endblock script %}
