@@ -24,6 +24,16 @@ import math
 
 FILE_PATH = "C:/Users/DaonWoori/OptimizedOfficeAI/Review_site"
 
+# Create your views here.
+def home(request):
+    return render(request,'Reviews/home.html')
+
+def about(request):
+    return render(request,'Reviews/about.html')
+
+def manual(request):
+    return render(request,'Reviews/usermanual.html')
+
 def calculate_distance(point):
     x_centroid , y_centroid = 0.5, 0.5
     return math.sqrt((x_centroid - point[0])**2 + (y_centroid - point[1])**2)

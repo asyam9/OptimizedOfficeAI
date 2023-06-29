@@ -1,0 +1,111 @@
+<!--서비스안내 > 서비스 소개 페이지-->
+
+
+{% extends 'Reviews/nav.html' %}
+{% block nav %}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle btn btn-olive" aria-current="page" href="#" role="botton" data-bs-toggle="dropdown" aria-expanded="false">
+      서비스 안내
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item-text btn btn-olive text-start" href={% url "about" %}>서비스 소개</a></li>
+      <li><a class="dropdown-item-text" href={% url "manual" %}>사용자 매뉴얼</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href={% url "upload" %}>나의 리뷰 업로드</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href={% url "index" %}>다른 리뷰 보기</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">About Us</a>
+  </li>
+{% endblock nav %}
+{% block content %}
+
+  <div class="py-5 my-5 rounded-3 position-relative start-50 translate-middle-x text-center" style="width: 1200px; height: 500px; background-color:#ACB8A2;">
+    <div class="container-fluid">
+      <h1 class="fw-bold position-absolute bottom-0 start-50 translate-middle" style="font-size: 90pt">Ol'reviews</h1>
+      <p class="position-absolute bottom-0 start-50 translate-middle font-monospace" style="font-size: 17pt; letter-spacing:8pt;">국내 최초 사무용품 전문 리뷰사이트</p>
+      </div>
+  </div>
+  <div class="px-auto pt-5 pb-4 my-5 text-center">
+    <div class="col-lg-8 mx-auto">
+      <p class="lead mb-4"> <span class="bold-text">Ol'reviews는 사무용품 리뷰를 위해 인공지능 모델을 사용한 최초이자 유일한 웹서비스입니다. </span> <br> 사용자들은 사무용품 사진과 함께 리뷰 텍스트를 업로드할 수 있으며, <br> 똑똑하게 학습된 인공지능 모델이 업로드된 사무용품 사진을 분석하고, <br> 어떤 사무용품인지 자동으로 오브젝트를 구분해줍니다. </p>
+      <p class="lead mb-4"> <span class="bold-text">다른 사람들의 경험을 바탕으로 최적의 사무용품을 선택하고,<br>기능 및 성능을 확인해보세요! </span> <br> 여러분이 업로드한 리뷰는 다른 사용자들과 공유되며, <br> 사용자들은 수많은 사무용품 중에서 가장 적합한 제품을 찾을 수 있습니다. <br> 또한, 다른 사용자들로부터도 다양한 의견을 얻을 수 있습니다.</p>
+      <p class="lead mb-4 text-decoration-line-through"> <span class="bold-text">사무용품을 더욱 효율적으로 선택하고 활용하세요, 비지니스의 성과를 높여보세요! </span><br> Ol’reviews에는 현재 약 1만 5천개 이상의 리뷰가 등록되어 있으며, <br> 매일 평균 30여 개의 새로운 리뷰가 추가되고 있습니다.</p>
+    </div>
+  </div>
+
+  <div class="px-4 pt-4 pb-5 my-5 text-center">
+    <h1 class="display-4 fw-bold">지금 시작하세요</h1>
+    <div class="col-lg-8 mx-auto">
+      <p class="lead mb-4">Ol’Reviews와 함께 최적의 사무용품을 찾아보세요. <br> 가입하고 사용해보는 데 어려움이 없도록 안내해드립니다.</p>
+      <div class="py-3 d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a type="button" class="btn btn-secondary btn-lg" href={% url "register" %}>가입하기</button>
+        <a type="button" class="btn btn-secondary btn-lg" href={% url "upload" %}>리뷰 업로드하기</button>
+        <a type="button" class="btn btn-secondary btn-lg" href={% url "manual" %}>사용자 매뉴얼보기</button>
+        <a type="button" class="btn btn-secondary btn-lg" href="https://github.com/asyam9/OptimizedOfficeAI" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="OptimizedOfficeAI팀 git hub 페이지로 이동합니다.">
+          <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"  width="30" height="30" class="d-inline-block align-text-top"> 개발자 매뉴얼보기</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container px-5 py-5" style="width: 1000px;">
+    <h2 class="pt-5 pb-3 border-bottom">AI가  분석하는 리뷰</h2>
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-2" style="width: 1000px;">
+      <div class="col-md-6 d-flex align-items-start">
+        <div class="text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"></div>
+        <div>
+          <h4>새로운 경험</h4>
+          <p>편리하지만 정확함을 추구하는 현대인들을 위한 <br> 국내 최초 AI분석 사무용품 리뷰사이트를 경험해보세요.</p>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-start">
+        <div class="text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"></div>
+        <div>
+          <h4>신뢰성 보장</h4>
+          <p>AI 기술로 빠르고 정확하게 <br> 사진과 상품을 분석 및 평가하여 공유합니다.</p>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-start">
+        <div class="text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"></div>
+        <div>
+          <h4>폭넓은 상품군</h4>
+          <p>사무용품의 다양성을 경험하세요. <br> 펜부터 모바일, 랩탑까지 다양한 사무용품을 리뷰합니다.</p>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-start">
+        <div class="text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"></div>
+        <div>
+          <h4>전문가 추천(준비중)</h4>
+          <p>업계 최고의 사무용품 전문가들이 추천하는 <br> 상품을 모아놓았습니다.</p>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-start">
+        <div class="text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"></div>
+        <div>
+          <h4>실사용자들의 평가</h4>
+          <p>사용자들의 후기와 평가를 토대로 <br> 각 상품에 대한 평가를 제공합니다.</p>
+        </div>
+      </div>
+      <div class="col-md-6 d-flex align-items-start">
+        <div class="text-bg-light d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3"></div>
+        <div>
+          <h4>커뮤니티 활동(준비중)</h4>
+          <p>독자들과 의견을 공유하고, 질문을 하며, <br> 정보를 나눌 수 있는 커뮤니티를 운영합니다.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div style="height:200px">
+    </div>
+  </div>
+
+  
+
+{% endblock %}  
+

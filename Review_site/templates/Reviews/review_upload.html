@@ -1,4 +1,4 @@
-{% extends "Reviews/base_with_nav.html" %}
+{% extends 'Reviews/nav.html' %}
 {% load widget_tweaks %}
 
 <!--웹 페이지 이름-->
@@ -12,11 +12,23 @@
 
 <!--내비게이션 바-->
 {% block nav %}
-<li class="nav-item">
-    <a class="nav-link" aria-current="page" href={% url "index" %}>리뷰 조회</a>
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      서비스 안내
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item-text" href={% url "about" %}>서비스 소개</a></li>
+      <li><a class="dropdown-item-text" href={% url "manual" %}>사용자 매뉴얼</a></li>
+    </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href={% url "upload" %}>리뷰 입력</a>
+    <a class="nav-link btn btn-olive" aria-current="page" href={% url "upload" %}>나의 리뷰 업로드</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href={% url "index" %}>다른 리뷰 보기</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">About Us</a>
   </li>
 {% endblock nav %}
 

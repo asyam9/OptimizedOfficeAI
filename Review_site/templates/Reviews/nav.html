@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>{% block title %}Ol'reviews{% endblock title %}</title>
+  <style>
+    .bold-text {
+      color: black;
+      font-size: 17pt;
+      font-weight: bold;
+    }   
+    .nav-link:hover {
+      color: white;
+      background-color: #ACB8A288;
+      border-radius: 10px;
+    }
+    .dropdown-item-text{
+      color: inherit;
+      text-decoration: none;
+    }
+    .dropdown-item-text:hover {
+      background-color: #ACB8A288;
+      border-radius: 10px;
+      color: inherit;
+    }
+    .btn.btn-olive{
+      color:white;
+      background-color: #ACB8A2;
+      border-radius: 10px;
+      border-color: #ACB8A2;
+    }
+    .btn.btn-olive:hover{
+      border-color: slategrey;
+      color: slategrey;
+      border-radius: 10px;
+    }
+    .btn.btn-outline-olive{
+      border-color: darkslategrey;
+      color: darkslategrey;
+      border-radius: 10px;
+    }
+    .btn.btn-outline-olive:hover{
+      background-color: #ACB8A288;
+      border-radius: 10px;
+    }
+    .btn.btn-grey{
+      color: white;
+      background-color: lightslategrey;
+      border-radius: 10px;
+    }
+    .btn.btn-grey:hover{
+      border-color: darkslategrey;
+      color: darkslategrey;
+      border-radius: 10px;
+    }
+    .btn.btn-outline-grey{
+      border-color: darkslategrey;
+      color: darkslategrey;
+      border-radius: 10px;
+    }
+    .btn.btn-outline-grey:hover{
+      color: white;
+      background-color: lightgrey;
+      border-radius: 10px;
+      border-color: grey;
+    }
+    .btn.btn-outline-grey:focus{
+      color: white;
+      background-color: lightgrey;
+      border-radius: 10px;
+      border-color: grey;
+    }
+
+  </style>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'Reviews/css/style.css' %}">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg fixed-top bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href={% url "home" %}>
+        <img src="{% static 'Reviews/image/olreviewsthumb.jpg' %}" width="30" height="30" class="d-inline-block align-text-top">
+        Ol'reviews
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+          {% block nav %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              서비스 안내
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item-text" href={% url "about" %}>서비스 소개</a></li>
+              <li><a class="dropdown-item-text" href={% url "manual" %}>사용자 매뉴얼</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url "upload" %}>나의 리뷰 업로드</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href={% url "index" %}>다른 리뷰 보기</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About Us</a>
+          </li>
+          {% endblock nav %}
+        </ul>        
+      </div>
+      {% if user.is_authenticated %}
+          <div class="dropdown">
+            <button class="btn btn-outline-success dropdown-toggle" type="button" id="myPageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+              마이페이지
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="myPageDropdown">
+              <li><a class="dropdown-item" href={% url 'deleteacdcount' %}>회원 탈퇴</a></li>
+              <li><a class="dropdown-item" href={% url 'logout' %}>로그아웃</a></li>
+              <!-- 다른 마이페이지 관련 메뉴 추가 -->
+            </ul>
+          </div>
+        {% else %}
+        <div class="text-end">
+          <a type="button" href={% url 'login' %} class="btn btn-sm btn-outline-success me-2">Log in</a>
+          <a type="button" href={% url 'register' %} class="btn btn-sm btn-warning">Sign up</a>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+  <hr style="margin: 0">
+    </div>
+  </nav>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+    crossorigin="anonymous"></script>
+    
+{% block content %}
+{% endblock content %}
+{% block script %}
+{% endblock script %}
+</body>
+
+</html>
