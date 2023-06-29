@@ -2,7 +2,19 @@ from django.db import models
 from django.core.validators import validate_image_file_extension, FileExtensionValidator
 from django.contrib.auth.models import User
 
+import os
+from uuid import uuid4
+
 imgvalidator = FileExtensionValidator(allowed_extensions=['jpg', 'png', 'jpeg'], message='다음과 같은 형식의 확장자만 사용 가능합니다(jpg, png, jpeg)')
+
+def rename_imagefile_to_uuid(instance, filename): 	# instance : Feed 모델에서 __str__로 반환해주는 값 현재는 title로 지정
+    												# filename : 원본 파일명
+    upload_to = f'review_images/' 			        # 파일 저장 위치 설정
+    ext = filename.split('.')[-1]        			# 원본 파일명 text.jpg->[text, jpg]로 나누어주고 -1 번째 값만 ext에 담아주기
+    uuid = uuid4().hex                   			# 50da5daca34d4802a771047ee463c234 이런 형식에 임의에 이름 생성
+    filename = '{}.{}'.format(uuid, ext) 			# '{uuid}.{ext}' -> 50da5daca34d4802a771047ee463c234.jpg
+										 			# format(uuid, ext) -> uuid = 파일명, ext = 파일 형식
+    return os.path.join(upload_to, filename)		# DB에 저장할 값을 리턴
 
 # Create your models here.
 class Review_Models(models.Model):
@@ -30,9 +42,9 @@ class Review_Models(models.Model):
     ratings = models.IntegerField(choices=RATINGS_CHOICES)
     content = models.TextField()
     dt_created = models.DateTimeField(auto_now_add=True)
-    imgfile = models.ImageField(upload_to='review_images/', validators=[validate_image_file_extension, imgvalidator])
+    imgfile = models.ImageField(upload_to=rename_imagefile_to_uuid, validators=[validate_image_file_extension, imgvalidator])
     domain_clf = models.CharField(max_length=15)
-    objects_clf = models.TextField()
+    objects_clf = models.CharField(max_length=1000)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # yolo 모델 분류 결과를 출력하기 위한 함수 -> 리스트 안 오브젝트를 각각 출력
