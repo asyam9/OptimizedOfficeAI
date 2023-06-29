@@ -1,0 +1,44 @@
+{% extends "Reviews/nav.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+<div class="container p-5">
+  <div style="text-align: center; max-width: 300px; margin: 4rem auto;">
+    <div>
+      <h3 class="fw-bold">로그인</h3>
+      <p class="lead" style="font-size: 14pt">Ol'reviews에 오신 것을 환영합니다!</p>
+    </div>
+    <div class="d-flex justify-content-center mt-5">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+    {% if message %}
+    <div class="alert alert-success">
+      {{ message }}
+    </div>
+    {% endif %}
+
+    <div>
+      <form action={% url "login" %} method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}      
+        <div class="row pt-4 pb-2 justify-content-center">
+          <input type="submit" class="btn btn-olive rounded-pill" style="width: 200px; height: 40px;" value="로그인">
+        </div>
+      </form>
+
+      <div class="row justify-content-center">
+        <a href={% url "register" %} class="btn btn-grey rounded-pill" style="width: 200px; height: 40px;">회원 가입</a>
+      </div>
+
+      <div class="row mt-2 justify-content-center">
+        <a href={% url "index" %} class="btn btn-grey rounded-pill" style="width: 200px; height: 40px;">홈으로</a>
+      </div>
+    </div>
+
+
+
+    </div>  
+  </div>
+{% endblock %}

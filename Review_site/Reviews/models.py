@@ -19,11 +19,11 @@ class Review_Models(models.Model):
         https://stackoverflow.com/questions/1110153/what-is-the-most-efficient-way-to-store-a-list-in-the-django-models
     """
     RATINGS_CHOICES = (
-        (5, "★★★★★"),
-        (4, "★★★★"),
-        (3, "★★★"),
-        (2, "★★"),
-        (1, "★")
+        (5, "⭐️⭐️⭐️⭐️⭐️"),
+        (4, "⭐️⭐️⭐️⭐️"),
+        (3, "⭐️⭐️⭐️"),
+        (2, "⭐️⭐️"),
+        (1, "⭐️")
      ) # (데이터베이스에 저장되는 값, 웹에 표시되는 값)
 
     title = models.CharField(max_length=30)
@@ -35,6 +35,7 @@ class Review_Models(models.Model):
     objects_clf = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    # yolo 모델 분류 결과를 출력하기 위한 함수 -> 리스트 안 오브젝트를 각각 출력
     def get_objects_list(self):
         if self.objects_clf:
             return self.objects_clf[1:-1].split(', ')

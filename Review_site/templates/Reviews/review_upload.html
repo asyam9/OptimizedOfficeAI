@@ -1,0 +1,104 @@
+{% extends 'Reviews/nav.html' %}
+{% load widget_tweaks %}
+
+<!--웹 페이지 이름-->
+{% block title %} 
+  {% if review %}
+    리뷰 수정 | Ol'reviews
+  {% else %}
+    리뷰 작성 | Ol'reviews
+  {% endif %}
+{% endblock title %}
+
+<!--내비게이션 바-->
+{% block nav %}
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      서비스 안내
+    </a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item-text" href={% url "about" %}>서비스 소개</a></li>
+      <li><a class="dropdown-item-text" href={% url "manual" %}>사용자 매뉴얼</a></li>
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link btn btn-olive" aria-current="page" href={% url "upload" %}>나의 리뷰 업로드</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href={% url "index" %}>다른 리뷰 보기</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">About Us</a>
+  </li>
+{% endblock nav %}
+
+<!--리뷰 입력 폼-->
+{% block content %}
+<div class="container" style='width: 50%; margin-top:100px'>
+    {% if not request.user.is_authenticated %}
+      <div class="alert alert-success" role="alert">
+        로그인 후에 업로드 기능을 사용할 수 있습니다. 미 로그인 시 제출 버튼이 비활성화됩니다.
+      </div>
+    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h5>리뷰 작성하기</h5>
+        (* 표시 필수 입력)
+        <hr>
+
+        <table class="table">
+            <tbody>
+              <tr>
+                <th scope="row">제목*</th>
+                <td>{{ form.title|add_class:"form-control"|attr:"id:floatingInput"|attr:"placeholder: 최대 30글자까지 입력 가능" }}</td>
+              </tr>
+              <tr>
+                <th scope="row">별점*</th>
+                <td> {{ form.ratings |add_class:"form-select"|attr:"id:floatingSelect"|attr:"aria-label:Floating label select example" }} </td>
+              </tr>
+              <tr>
+                <th scope="row">내용*</th>
+                <td>  {{ form.content|add_class:"form-control"|attr:"id:floatingTextarea2"|attr:"placeholder:리뷰 내용을 작성하세요"|attr:"style:height: 150px" }}  </td>
+              </tr>
+              <tr>
+                <th scope="row">리뷰 사진*</th>
+                <td>  {{ form.imgfile|add_class:"form-control"|attr:"id:formFile" }} ※ 업로드 가능한 이미지 확장자: .jpg / .png / .jpeg  </td>
+              </tr>
+            </tbody>
+          </table>
+          <!--에러 발생 시 경고창 띄우기-->
+          {% if form.errors %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                  {{ error }}
+                {% endfor %}
+              {% endfor %}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endif %}
+          <!--로그인 시 제출 버튼 활성화-->
+          {% if request.user.is_authenticated %}
+            <div class="d-grid gap-2 col-6 mx-auto" style='float:left; padding: 0 10px'>
+              <button type="submit" class="btn btn-outline-success">제출</button>
+            </div>
+          {% else %}
+            <div class="d-grid gap-2 col-6 mx-auto" style='float:left; padding: 0 10px'>
+              <button type="submit" class="btn btn-outline-success" disabled>제출</button>
+            </div>
+          {% endif %}
+    </form>
+    <!--버튼 구현-->
+    <div class="d-grid gap-2 col-6 mx-auto" style='float: left; padding: 0 30px;'>
+      {% if review %}
+        <a href={% url "detail" review.id %}>
+      {% else %}
+        <a href={% url "index" %}>
+      {% endif %}
+        <button type="submit" class="btn btn-outline-secondary" style="width: 400px;">취소</button>
+      </a>
+    </div>
+</div>
+
+{% endblock content %}

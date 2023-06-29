@@ -1,0 +1,39 @@
+{% extends "Reviews/nav.html" %}
+{% load bootstrap4 %}
+
+{% block content %}
+  <div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h1 class="card-title text-center">회원 탈퇴</h1>
+            <p class="card-text text-center">정말로 회원 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다.</p>
+            {% if message %}
+              <p style='color: red;'>{{ message }}</p>
+            {% endif %}
+            <form method="post" action={% url 'deleteaccount' %}>
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="password" class="form-label">비밀번호</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" required>
+              </div>
+              <div class="text-center">
+                <input type="submit" class="btn btn-danger" value="회원 탈퇴">
+              </div>
+            </form>
+            <div class="text-center mt-3">
+              <a href={% url 'index' %} class="btn btn-dark">홈으로</a>
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+
+
+
+
+
+
