@@ -147,6 +147,13 @@ def get_key_by_value(dict, value):
 
 # 리뷰 조회 페이지 로직
 def index(request):
+    stars = {
+        '⭐️⭐️⭐️⭐️⭐️':5,
+        '⭐️⭐️⭐️⭐️':4,
+        '⭐️⭐️⭐️':3,
+        '⭐️⭐️':2,
+        '⭐️':1
+    }
     #### 정렬 기능 
     # sort GET (값이 없다면 '최신 순')
     # domain GET (값이 없다면 'ALL')
@@ -176,7 +183,7 @@ def index(request):
         reviews = reviews.filter(objects_clf__contains=mapped_product)
     # 별점 필터
     if star is not None and star != 'ALL':
-        reviews = reviews.filter(ratings=star)
+        reviews = reviews.filter(ratings=stars[star])
     
     # paginator 객체 생성(queryset, 한 페이지에서 보여줄 포스트 개수)
     paginator = Paginator(reviews, 9)

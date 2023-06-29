@@ -19,11 +19,11 @@ class Review_Models(models.Model):
         https://stackoverflow.com/questions/1110153/what-is-the-most-efficient-way-to-store-a-list-in-the-django-models
     """
     RATINGS_CHOICES = (
-        (5, "★★★★★"),
-        (4, "★★★★"),
-        (3, "★★★"),
-        (2, "★★"),
-        (1, "★")
+        (5, "⭐️⭐️⭐️⭐️⭐️"),
+        (4, "⭐️⭐️⭐️⭐️"),
+        (3, "⭐️⭐️⭐️"),
+        (2, "⭐️⭐️"),
+        (1, "⭐️")
      ) # (데이터베이스에 저장되는 값, 웹에 표시되는 값)
 
     title = models.CharField(max_length=30)
