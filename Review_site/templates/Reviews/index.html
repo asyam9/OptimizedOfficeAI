@@ -64,8 +64,8 @@
           정렬
           <button class="btn btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_sort" data-bs-toggle="dropdown" aria-expanded="false">{{sort}}</button>
           <ul class="dropdown-menu" aria-labelledby="ddb_sort">
-            <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="date-new">최신등록 순</a></li>
-            <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="likes-high">별점높은 순</a></li>
+            <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="date-new">최신등록순</a></li>
+            <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="likes-high">별점높은순</a></li>
           </ul>
         </div>
 
@@ -139,6 +139,7 @@
     var domain = document.getElementById('ddb_domain').innerText;
     var product = document.getElementById('ddb_product').innerText;
     var star = document.getElementById('ddb_star').innerText;
+    star = countStars(star);
     var sort = document.getElementById('ddb_sort').innerText;
     var page = page;
     
@@ -152,5 +153,20 @@
     // Redirect to the new URL
     window.location.href = url;
   }
+  function countStars(str) {
+    let count = 0;
+   
+   	if(str === 'ALL'){
+   		result = 'ALL'
+   	}else{
+   		for(let i = 0; i < str.length; i++) {
+   			if(str[i] === "⭐" && str !== 'ALL') {
+   				count++;}
+   				}
+   		result = count
+   	}
+    return result;
+}
+
 </script> 
 {% endblock script %}

@@ -56,20 +56,20 @@ def img_domain_clf(img_url):
     model = tf.keras.models.load_model(FILE_PATH + '/ai_models/CNN_Model_Dataset2.h5', compile=False)
     
     # 이미지 분류 수행
-    start_time = time.time()
+    # start_time = time.time()
     prediction = model.predict(img)
-    end_time = time.time()
+    # end_time = time.time()
 
-    diff_time = end_time - start_time
+    # diff_time = end_time - start_time
 
     # 분류 결과 반환 -> 수행 시간 소수점 4자리까지만 반환
     result = prediction[0][0]
     if result > 0.5:
-        domain = 'Office'
+        domain = '제품'
     else:
-        domain = 'None Office'
+        domain = '실사용'
 
-    return domain, round(diff_time, 4)
+    return domain
 
 # 이미지 클래스 분류 로직
 def img_object_clf(img_url):
@@ -81,11 +81,11 @@ def img_object_clf(img_url):
     names = model.names
 
     # 이미지 분류 수행
-    start_time = time.time()
+    # start_time = time.time()
     result = model.predict(source=path)
-    end_time = time.time()
+    # end_time = time.time()
 
-    diff_time = end_time - start_time
+    # diff_time = end_time - start_time
 
     #오브젝트별 중심 거리 
     distances = []
@@ -112,7 +112,7 @@ def img_object_clf(img_url):
     # except:
     #     object_clf = "None"
 
-    return objects_list, round(diff_time, 4)
+    return objects_list
 
 # Class 매핑 딕셔너리
 PRODUCT_MAPPING = {
@@ -157,13 +157,13 @@ def get_key_by_value(dict, value):
 
 # 리뷰 조회 페이지 로직
 def index(request):
-    stars = {
-        '⭐️⭐️⭐️⭐️⭐️':5,
-        '⭐️⭐️⭐️⭐️':4,
-        '⭐️⭐️⭐️':3,
-        '⭐️⭐️':2,
-        '⭐️':1
-    }
+    # stars = {
+    #     '⭐️⭐️⭐️⭐️⭐️':5,
+    #     '⭐️⭐️⭐️⭐️':4,
+    #     '⭐️⭐️⭐️':3,
+    #     '⭐️⭐️':2,
+    #     '⭐️':1
+    # }
     #### 정렬 기능 
     # sort GET (값이 없다면 '최신 순')
     # domain GET (값이 없다면 'ALL')
@@ -175,11 +175,11 @@ def index(request):
     star = request.GET.get('star', 'ALL')
     
     # 날짜와 관련한 정렬
-    if sort == '최신 순':
+    if sort == '최신등록순':
         reviews = Review_Models.objects.all().order_by('-dt_created')
     # 별점과 관련한 정렬
-    elif sort == '별점 순':
-        reviews = Review_Models.objects.all().order_by('-ratings')
+    elif sort == '별점높은순':
+        reviews = Review_Models.objects.all().order_by('-ratings', '-dt_created')
     # 정렬 없을 떄
     else:
         reviews = Review_Models.objects.all().order_by('-dt_created') # 데이터 전체 불러오기
@@ -193,7 +193,8 @@ def index(request):
         reviews = reviews.filter(objects_clf__contains=mapped_product)
     # 별점 필터
     if star is not None and star != 'ALL':
-        reviews = reviews.filter(ratings=stars[star])
+        reviews = reviews.filter(ratings=star)
+        star = '⭐' * int(star)
     
     # paginator 객체 생성(queryset, 한 페이지에서 보여줄 포스트 개수)
     paginator = Paginator(reviews, 9)
@@ -220,8 +221,8 @@ def upload(request):
             review = Review_Models.objects.get(id=post.id)
 
             # 이미지 분류 함수 호출(이미지는 url형태로 넘겨주기)
-            cnn_result, cnn_diff_time = img_domain_clf(review.imgfile.url)
-            yolo_result, yolo_diff_time = img_object_clf(review.imgfile.url)
+            cnn_result = img_domain_clf(review.imgfile.url)
+            yolo_result = img_object_clf(review.imgfile.url)
 
              # 결과를 받아와서 필드 값 수정 및 저장
             review.domain_clf = cnn_result
@@ -262,8 +263,8 @@ def update(request, post_id):
             review = Review_Models.objects.get(id=post.id)
 
             # 이미지 분류 함수 호출(이미지는 url형태로 넘겨주기)
-            cnn_result, cnn_diff_time = img_domain_clf(review.imgfile.url)
-            yolo_result, yolo_diff_time = img_object_clf(review.imgfile.url)
+            cnn_result = img_domain_clf(review.imgfile.url)
+            yolo_result = img_object_clf(review.imgfile.url)
 
              # 결과를 받아와서 필드 값 수정 및 저장
             review.domain_clf = cnn_result
@@ -365,14 +366,14 @@ def deleteaccount(request):
             user.delete()
             logout(request)
             message = '회원 탈퇴가 완료되었습니다.'
-            return render(request, 'Reviews/deleteaccount.html', {'message':message})
+            return render(request, 'Reviews/delete_account.html', {'message':message})
         
         else:   
             message = '비밀 번호가 올바르지 않습니다.'
-            return render(request, 'Reviews/deleteaccount.html', {'message':message})
+            return render(request, 'Reviews/delete_account.html', {'message':message})
                   
     if request.method == 'GET':
-        return render(request, 'Reviews/deleteaccount.html')
+        return render(request, 'Reviews/delete_account.html')
 
 @csrf_exempt
 def logout_view(request):
