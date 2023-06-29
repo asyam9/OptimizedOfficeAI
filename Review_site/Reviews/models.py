@@ -35,6 +35,7 @@ class Review_Models(models.Model):
     objects_clf = models.TextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    # yolo 모델 분류 결과를 출력하기 위한 함수 -> 리스트 안 오브젝트를 각각 출력
     def get_objects_list(self):
         if self.objects_clf:
             return self.objects_clf[1:-1].split(', ')
