@@ -59,7 +59,9 @@ ROOT_URLCONF = 'Review_site.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,6 +123,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
 
 # 미디어 파일 경로 설정(1)
 MEDIA_URL = '/media/' # 미디어 파일을 접근할 때 사용하는 url -> /MEDIA_URL/review_images/image_name
