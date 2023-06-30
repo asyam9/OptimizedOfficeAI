@@ -12,6 +12,7 @@ urlpatterns = [
     path('service/', views.about, name='about'),
     path('manual/', views.manual, name='manual'),
     path('reviews/', include('Reviews.urls')),
+    path('aboutus/', views.aboutus, name='aboutus')
 ]
 # media 파일 요청을 처리하는 방법을 명시(2)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

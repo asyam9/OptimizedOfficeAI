@@ -1,0 +1,109 @@
+{% extends 'Reviews/nav.html' %}
+{% load static %}
+{% block nav %}
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        서비스 안내</a>
+    <ul class="dropdown-menu">
+        <li><a class="dropdown-item-text" href={% url "about" %}>서비스 소개</a></li>
+        <li><a class="dropdown-item-text" href={% url "manual" %}>사용자 매뉴얼</a></li>
+    </ul>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href={% url "upload" %}>나의 리뷰 업로드</a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href={% url "index" %}>다른 리뷰 보기</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link btn btn-olive" aria-current="page" href={% url "aboutus" %}>About Us</a>
+</li>
+{% endblock nav %}
+
+{% block content %}
+  <div class="py-5 my-5 rounded-3 position-relative start-50 translate-middle-x text-center bg-dark" style="width: 1200px; height: 500px;color: white;">
+    <div class="container-fluid">
+      <h1 class="fw-bold position-absolute bottom-0 start-50 translate-middle mb-2" style="font-size: 60pt">OptimizedOfficeAI</h1>
+      <p class="position-absolute bottom-0 start-50 translate-middle font-monospace my-1" style="font-size: 17pt; letter-spacing:8pt;">MEET US</p>
+      </div>
+  </div>
+  
+  <div class="container text-center align-items-center" style='width: 90%; margin-top:100px'>
+    <div class="row md-5">
+
+      <div class="col-lg-6">
+        <img class="bd-placeholder-img rounded-circle" width="200" height="200" src="{% static 'Reviews/image/gu2.jpg' %}" aria-label="Placeholder: 200x200" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/>
+        <h3 class="fw-bold pt-4">구자현</h3>
+        <h5 class="fw-bold"> < LEADER⚙ > </LEADER></h5>
+        <p class="pt-2">YOLO v8 모델 제작 ( Class 분류 ) <br> 데이터 수집 및 전처리 <br> 웹 페이지 개발 </p>
+        <div class="pt-0 pb-3 d-grid gap-3 d-sm-flex justify-content-sm-center">
+          <span class="px-auto border border-secondary rounded">
+            <a class="p-1 ms-2 text-secondary" style="text-decoration: none;">Contact: asyam6699@gmail.com</a>
+            <a type="button" class="btn btn-secondary btn-sm" href="https://github.com/asyam9" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="OptimizedOfficeAI팀 git hub 페이지로 이동합니다.">
+              <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"  width="30" height="30" class="d-inline-block align-text-top py-auto"></a>
+          </span>
+        </div>
+      </div><!-- /.col-lg-4 -->
+
+      <div class="col-lg-6">
+        <img class="bd-placeholder-img rounded-circle" width="200" height="200" src="{% static 'Reviews/image/bit.jpg' %}" aria-label="Placeholder: 200x200" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/>
+        <h3 class="fw-bold pt-4">김빛찬</h3>
+        <h5 class="fw-bold"> < Member🛠 > </h5>
+        <p class="pt-2"> CNN 모델 제작 ( Domain 분류 ) <br> 데이터 수집 및 전처리 <br> 웹 페이지 개발 </p>
+        <div class="pt-0 pb-3 d-grid gap-3 d-sm-flex justify-content-sm-center">
+          <span class="px-auto border border-secondary rounded">
+          <a class="p-1 ms-2 text-secondary" style="text-decoration: none;">Contact: bchankim27@gmail.com</a>
+            <a type="button" class="btn btn-secondary btn-sm" href="https://github.com/Bitchankim" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="OptimizedOfficeAI팀 git hub 페이지로 이동합니다.">
+              <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"  width="30" height="30" class="d-inline-block align-text-top py-auto"></a>
+          </span> 
+        </div>
+      </div><!-- /.col-lg-4 -->
+
+    </div>
+
+    <div class="row">
+
+        <div class="col-lg-6 p-5">
+            <img class="bd-placeholder-img rounded-circle" width="200" height="200" src="{% static 'Reviews/image/yum.jpg' %}" aria-label="Placeholder: 200x200" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/>
+            <h3 class="fw-bold pt-4">김유민</h3>
+            <h5 class="fw-bold"> < Member🛠 > </h5>
+            <p class="pt-2"> 웹 페이지 개발 <br> 데이터 수집 및 전처리 <br> PPT </p>
+            <div class="pt-0 pb-3 d-grid gap-3 d-sm-flex justify-content-sm-center">
+              <span class="px-auto border border-secondary rounded">
+                <a class="p-1 ms-2 text-secondary" style="text-decoration: none;">Contact: yumkim1016@gmail.com</a>
+                <a type="button" class="btn btn-secondary btn-sm" href="https://github.com/yumkim1016" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="OptimizedOfficeAI팀 git hub 페이지로 이동합니다.">
+                  <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"  width="30" height="30" class="d-inline-block align-text-top py-auto"></a>
+              </span>
+            </div>
+          </div><!-- /.col-lg-4 -->
+    
+          <div class="col-lg-6 p-5">
+            <img class="bd-placeholder-img rounded-circle" width="200" height="200" src="{% static 'Reviews/image/mi.jpg' %}" aria-label="Placeholder: 200x200" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/>
+            <h3 class="fw-bold pt-4">정미정</h3>
+            <h5 class="fw-bold"> < Member🛠 > </h5>
+            <p class="pt-2"> 웹 페이지 개발 <br> 데이터 수집 및 전처리 <br> 배포 </p>
+            <div class="pt-0 pb-3 d-grid gap-3 d-sm-flex justify-content-sm-center">
+              <span class="px-auto border border-secondary rounded">
+                <a class="p-1 ms-2 text-secondary" style="text-decoration: none;">Contact: alwjd7858@gmail.com</a>
+                <a type="button" class="btn btn-secondary btn-sm" href="https://github.com/DaonWoori" target="_blank" data-bs-toggle="tooltip" data-bs-placement="top" title="OptimizedOfficeAI팀 git hub 페이지로 이동합니다.">
+                  <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"  width="30" height="30" class="d-inline-block align-text-top py-auto"></a>
+              </span>
+            </div>
+          </div><!-- /.col-lg-4 -->
+
+    </div><!-- /.row -->
+
+    <div class="p-5">
+        <div class="p-3 px=auto bg-info bg-opacity-10 border border-info rounded text-center fs-5 fw-bold text-primary">
+            에러 발생 관련 문의는 아래 운영메일로 부탁드립니다.<br>
+            OptimizedOfficeAI@gmail.com
+        </div>
+    </div>  
+
+    <div class="container">
+        <div style="height:200px">
+    </div>
+
+
+
+{% endblock %}  
