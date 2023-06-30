@@ -1,5 +1,6 @@
 {% extends "Reviews/nav.html" %}
 {% load bootstrap4 %}
+{% load static %}
 
 {% block content %}
 <div class="container p-5">
@@ -9,7 +10,7 @@
       <p class="lead" style="font-size: 14pt">Ol'reviews의 일원이 되어주세요!</p>
     </div>
     <div class="d-flex justify-content-center mt-5">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
+      <img src="{% static 'Reviews/image/olreviews.jpg' %}" width="500px" height="500px">
     </div>
     <div class="row mt-3">
       <div class="col-12">
@@ -28,7 +29,7 @@
       </form>
     </div>
     <div class="row mt-2 justify-content-center">
-      <a href={% url "index" %} class="btn btn-grey rounded-pill" style="width: 200px; height: 40px;">홈으로</a>
+      <a href={% url "home" %} class="btn btn-grey rounded-pill" style="width: 200px; height: 40px;">홈으로</a>
     </div>
   </div>
 </div>

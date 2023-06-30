@@ -1,7 +1,7 @@
 <!--서비스안내 > 사용자 매뉴얼 페이지-->
 
-
 {% extends 'Reviews/nav.html' %}
+{% load static %}
 {% block nav %}
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle btn btn-olive" aria-current="page" href="#" role="botton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -19,7 +19,7 @@
     <a class="nav-link" href={% url "index" %}>다른 리뷰 보기</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">About Us</a>
+    <a class="nav-link" href={% url "aboutus" %}>About Us</a>
   </li>
 {% endblock nav %}
 {% block content %}
@@ -34,13 +34,13 @@
 <main class="p-5 container">
   <!-- 목차 -->
   <div class="mb-3 p-3 bg-body rounded shadow-sm">
-    <h6 class="border-bottom pb-3 mb-3" style="font-size: 18pt; font-weight:500; color:black">[ 목차 ] <a class="lead" style="font-size:14pt; text-decoration: none; color: grey; font-weight:400"> 아래 목차를 클릭하면 해당 위치로 이동됩니다. </a> </h6> 
+    <h6 class="border-bottom pb-2" style="font-size: 18pt; font-weight:600; color:black">[ 목차 ] <a class="lead" style="font-size:14pt; text-decoration: none; color: grey; font-weight:400"> 아래 목차를 클릭하면 해당 위치로 이동됩니다. </a> </h6> 
     <p class="pb-3 px-3 mb-0 border-bottom" style="font-weight:400; font-size:14pt;">
-      <a class = "px-3" href="#menu" style="text-decoration: none; color: black">0. 메뉴소개</a><br>
-      <a class = "px-3" href="#login"style="text-decoration: none; color: black;">1. 회원가입 / 로그인 / 마이페이지 / 회원탈퇴</a><br>
-      <a class = "px-3" href="#upload"style="text-decoration: none; color: black;">2. 나의 리뷰 업로드 / 수정 / 삭제</a><br>
-      <a class = "px-3" href="#review"style="text-decoration: none; color: black;">3. 다른 리뷰 보기</a><br>  
-      <a class = "px-3" href="#faq"style="text-decoration: none; color: black;">❓ 자주 묻는 질문</a><br>   
+      <a class = "a a1 px-3" href="#menu" style="color: black">0. 메뉴소개 ⇱</a><br>
+      <a class = "a a1 px-3" href="#login"style="color: black;">1. 회원가입 / 로그인 / 마이페이지 / 회원탈퇴 ⇱</a><br>
+      <a class = "a a1 px-3" href="#upload"style="color: black;">2. 나의 리뷰 업로드 / 수정 / 삭제 ⇱</a><br>
+      <a class = "a a1 px-3" href="#review"style="color: black;">3. 다른 리뷰 보기 ⇱</a><br>
+      <a class = "a a1 px-3" href="#faq"style="color: black;">❓ 자주 묻는 질문 ⇱</a><br>  
     </p>
     <a name="menu">
     </div>
@@ -50,13 +50,13 @@
   <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h6 class="border-bottom py-2 my-2" style="font-size: 18pt;">0. 메뉴소개</h6>
     <div class="container">
-      <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
+      <div class="d-flex justify-content-center py-2 my-2">
+        <img src="{% static 'Reviews/image/navigationbar.jpg' %}" width=100%>
       </div>
     </div>
   
     <div class="d-flex text-muted pt-3">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="50px" height="30px">
+      <img src="{% static 'Reviews/image/logo.jpg' %}" class="align-items-center my-auto" width=17% height=17%>
       <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark fw-bold">[ Ol'reviews Logo ]</strong>
         홈 화면으로 돌아갑니다.
@@ -64,17 +64,19 @@
     </div>
 
     <div class="d-flex text-muted pt-3">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="50px" height="30px">
-      <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">       
+      <img src="{% static 'Reviews/image/service.jpg' %}" class="align-bottom mt-3" width=70% height=70%>
+      <div class="container-fluid">
+        <p class="pb-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">       
         <strong class="d-block text-gray-dark">[ 서비스 안내 ]</strong>
         제공하는 서비스에대한 안내를 드립니다.<br>
-        <strong class="d-block text-gray-dark px-3">⎿ [ 서비스 소개 ]</strong> <a class="px-5 lh-sm" style="text-decoration: none; font-size: 13pt; color:grey;">제공하는 서비스에 대한 간략한 설명을 드립니다.</a>
-        <strong class="d-block text-gray-dark px-3">⎿ [ 사용자 매뉴얼 ]</strong> <a class="px-5 lh-sm" style="text-decoration: none; font-size: 13pt; color:grey;"> 홈페이지(서비스) 사용 방법입니다. 현재 이 페이지에 계십니다.</a>
-      </p>
+        <strong class="d-block text-gray-dark">⎿ [ 서비스 소개 ]</strong> <a class="lh-sm" style="text-decoration: none; font-size: 13pt; color:grey;">제공하는 서비스에 대한 간략한 설명을 드립니다.</a>
+        <strong class="d-block text-gray-dark">⎿ [ 사용자 매뉴얼 ]</strong> <a class="lh-sm" style="text-decoration: none; font-size: 13pt; color:grey;"> 홈페이지(서비스) 사용 방법입니다. 현재 이 페이지에 계십니다.</a>
+        </p>
+      </div>
     </div>
 
     <div class="d-flex text-muted pt-3">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="50px" height="30px">
+      <img src="{% static 'Reviews/image/upload.jpg' %}" class="align-items-center my-auto" width=17% height=17%>
       <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark">[ 나의 리뷰 업로드 ]</strong>
         사진과 텍스트를 작성하여 리뷰를 업로드하는 페이지입니다. 로그인 후 이용이 가능합니다.
@@ -82,7 +84,7 @@
     </div>
 
     <div class="d-flex text-muted pt-3">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="50px" height="30px">
+      <img src="{% static 'Reviews/image/page.jpg' %}" class="align-items-center my-auto" width=17% height=17%>
       <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark">[ 다른 리뷰 보기 ]</strong>
         다른 사람들의 리뷰를 볼 수 있습니다.
@@ -90,7 +92,7 @@
     </div>
 
     <div class="d-flex text-muted pt-3">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="50px" height="30px">
+      <img src="{% static 'Reviews/image/aboutus.jpg' %}" class="align-items-center my-auto" width=17% height=17%>
       <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark">[ About Us ]</strong>
         서비스를 개발하고 구현한 팀의 간략한 정보와 연락처가 있습니다.
@@ -98,7 +100,7 @@
     </div>
 
     <div class="d-flex text-muted pt-3">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="50px" height="30px">
+      <img src="{% static 'Reviews/image/login.jpg' %}" class="align-items-center my-auto" width=17% height=17%>
       <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark">[ Log in ]</strong>
         로그인 페이지로 이동됩니다.
@@ -106,7 +108,7 @@
     </div>
 
     <div class="d-flex text-muted pt-3">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="50px" height="30px">
+      <img src="{% static 'Reviews/image/signup.jpg' %}" class="align-items-center my-auto" width=17% height=17%>
       <p class="pb-3 px-3 mb-0 lh-sm" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark">[ Sign up ]</strong>
         회원가입 페이지로 이동됩니다.
@@ -120,7 +122,7 @@
     <h6 class="border-bottom py-2 my-2" style="font-size: 18pt;">1. 회원가입 / 로그인 / 마이페이지 / 회원탈퇴</h6>
 
     <div class="d-flex text-muted pt-3">
-      <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">
+      <p class="pb-3 px-3 mb-0 lh-sm" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark"> [ 안내 ] </strong>
         다른 리뷰 보기 등 기본적인 기능들은 회원가입없이 사용이 가능하지만, 리뷰 업로드 기능은 로그인을 하셔야 이용이 가능합니다.
       </p>
@@ -128,7 +130,7 @@
 
     <div class="container">
       <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
+        <img src="{% static 'Reviews/image/signuppage.jpg' %}" width="700px" height="700px">
       </div>
     </div>
 
@@ -137,70 +139,69 @@
         <strong class="d-block text-gray-dark">[ 회원가입 ]</strong>
         <br>
           1. 우측 상단 Sign up 버튼을 클릭합니다. <br>
-          2. id, 비밀번호, 동일한 비밀번호를 입력합니다. <br>
-          3. 확인버튼을 눌러주면 회원가입이 완료됩니다.
+          2. ID, 비밀번호, 동일한 비밀번호를 입력합니다. <br>
+          <a class="px-4 lead" style="text-decoration: none; color: red; font-size: 11pt;"> ❗️ ID는 다른 사용자와 중복되는 ID는 사용할 수 없으며, 영문, 숫자만 허용됩니다.</a><br>
+          3. [ 가입하기 ] 버튼을 눌러주면 회원가입이 완료됩니다.<br>
+          ※ 정상적으로 회원가입이 완료된 경우 아래와 같이 입력폼이 변경됩니다.<br>
+            <img src="{% static 'Reviews/image/signupsuc.jpg' %}" class="mx-4 my-3" width=50% height=auto>
       </p>
     </div>
 
     <div class="container">
       <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
-      </div>
-    </div>
-
-    <div class="d-flex text-muted pt-3">
-      <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;"> 
-        <strong class="d-block text-gray-dark">[ 로그인 ]</strong>
-        <br>
-          1. 우측 상단 Log in 버튼을 클릭합니다. <br>
-          2. 회원가입시 사용한 id와 비밀번호를 입력합니다. <br>
-          3. 확인버튼을 눌러주면 로그인이 완료됩니다.
-      </p>
-    </div>
-
-    <div class="container">
-      <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
-      </div>
-    </div>
-
-    <div class="d-flex text-muted pt-3">
-      <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;"> 
-        <strong class="d-block text-gray-dark">[ 로그인 과정에서 에러발생시 ]</strong>
-        <br>
-          3번 과정에서, 위 화면이 뜬다면, id와 비밀번호를 다시 한 번 확인하고 입력해주십시오. <br>
-          ❗️ 동일한 문제가 지속해서 발생한다면, 상단 [ About Us ] 로 접속하셔서 메일을 주시면 도와드리겠습니다.
-      </p>
-    </div>      
-
-    <div class="container">
-      <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
-      </div>
-    </div>
-
-    <div class="d-flex text-muted pt-3">
-      <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;"> 
-        <strong class="d-block text-gray-dark">[ 마이페이지 ]</strong>
-        <br>
-          로그인이 완료되면 우측 상단 페이지가 [ 마이페이지 ] 로 변경됩니다.
-      </p>
-    </div>      
-
-    <div class="container">
-      <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
+        <img src="{% static 'Reviews/image/loginpage.jpg' %}" width="700px" height="700px">
       </div>
     </div>
 
     <div class="d-flex text-muted pt-3">
       <p class="pb-3 px-3 mb-0 lh-sm" style="font-size: 13pt;"> 
-        <strong class="d-block text-gray-dark">[ 회원 탈퇴 ]</strong>
+        <strong class="d-block text-gray-dark">[ 로그인 ]</strong>
         <br>
-          탈퇴를 원하시는 경우 로그인 > 마이페이지 > 회원탈퇴 버튼을 클릭하시고, 비밀번호를 입력해주시면 탈퇴가 완료됩니다.<br>
-          ❗️ 문제가 발생하는 경우, 상단 [ About Us ] 로 접속하셔서 메일을 주시면 도와드리겠습니다.
+          1. 우측 상단 Log in 버튼을 클릭합니다. <br>
+          2. 회원가입시 사용한 ID와 비밀번호를 입력합니다. <br>
+          3. 로그인버튼을 눌러주면 로그인이 완료됩니다.<br>
+          ※ 정상적으로 로그인이 된 경우 아래와 같이 메뉴바에서 <br>
+          　 오른쪽 위에 있던 [ Log in ] / [ Sign up ] 버튼이 사라지고 [ 마이페이지 ] 버튼으로 변경됩니다.<br>
+          <img src="{% static 'Reviews/image/loginsuc.jpg' %}" class="mx-4 my-3" width=80% height=auto>
+      </p>
+    </div>
+
+    <div class="d-flex text-muted pt-3">
+      <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;"> 
+        <strong class=" d-block text-gray-dark">[ 로그인 과정에서 에러발생시 ]</strong>
+        <br>
+          3번 과정에서 Log in 접속에 에러가 발생하면, ID와 비밀번호를 다시 한 번 확인하고 입력해주십시오. <br>
+          ❗️ 동일한 문제가 지속해서 발생한다면, 상단<a class="a a1 px-2 fw-bold" href={% url 'aboutus' %} style="color: grey;">[ About Us ]⇱</a>로 접속하셔서 메일을 주시면 도와드리겠습니다.
       </p>
     </div>      
+
+    <div class="container">
+      <div class="d-flex justify-content-center py-5 my-5">
+        <img src="{% static 'Reviews/image/deleteaccount.jpg' %}" width="700px" height=auto>
+      </div>
+    </div>
+
+    <div class="d-flex text-muted">
+      <p class="pb-3 px-3 mb-0 lh-sm" style="font-size: 13pt;"> 
+        <strong class="d-block text-gray-dark">[ 회원 탈퇴 ]</strong>
+        <br>
+        <a class="fw-bold" style="text-decoration: none; color: red;"> ❗️ 탈퇴를 진행하게 되면 계정을 다시 살리거나 되돌릴 방법이 없으니, 신중하게 생각하고 결정해주세요.</a><br>
+        <br>
+          탈퇴를 원하시는 경우 로그인 > 마이페이지 > 회원탈퇴 버튼을 클릭하시고, 비밀번호를 입력해주세요.<br>
+          회원 탈퇴 버튼을 클릭하면 탈퇴가 완료됩니다.<br>
+          ※ 정상적으로 회원 탈퇴에 성공한 경우 아래사진 처럼 입력폼이 변경됩니다. <br>          
+          <img src="{% static 'Reviews/image/delaccount.jpg' %}" class="mx-auto my-3" width=30% height=auto><br>
+      </p>
+    </div>
+    
+    <div class="d-flex text-muted">
+      <p class="pb-3 px-3 mb-0 lh-sm" style="font-size: 13pt;"> 
+        <strong class="d-block text-gray-dark">[ 로그아웃 ]</strong>
+        <br>
+          로그아웃을 원하시는 경우 로그인 > 마이페이지 > 로그아웃 버튼을 클릭하여주세요.<br>
+      </p>
+    </div>
+    
     <a name="upload">
   </div>
 
@@ -209,17 +210,16 @@
     <h6 class="border-bottom py-2 my-2" style="font-size: 18pt;">2. 나의 리뷰 업로드 / 수정 / 삭제 </h6>
 
     <div class="d-flex text-muted pt-3">
-      <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">
+      <p class="pb-3 px-3 mb-0 lh-sm" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark"> [ 안내 ] </strong>
         다른 리뷰 보기 등 기본적인 기능들은 회원가입없이 사용이 가능하지만, 리뷰 업로드 기능은 로그인을 하셔야 이용이 가능합니다.<br>
-        회원가입 및 로그인 매뉴얼은 목차 1번을 참고하십시오. <br>
-        <a class="px-2" href="#login" style="text-decoration: none; color: grey;"> >> 1. 회원가입 / 로그인 / 마이페이지 / 회원탈퇴 매뉴얼 바로가기</a>
+        회원가입 및 로그인 매뉴얼은<a class="a a1 px-2 fw-bold" href="#login" style="color: grey;">목차 1번⇱</a>을 참고하십시오.
       </p>
     </div>
 
     <div class="container">
       <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
+        <img src="{% static 'Reviews/image/uploadpage.jpg' %}" width="700px" height=auto>
       </div>
     </div>
 
@@ -228,20 +228,24 @@
         <strong class="d-block text-gray-dark">[ 리뷰 업로드 하기 ]</strong>
         <br>
           1. 로그인이 되어있는 상태에서 상단 메뉴바의 [ 나의 리뷰 업로드 ] 버튼을 클릭합니다. <br>
-          2. 제목, 내용을 기재하고 별점을 선택한 뒤, 사진 업로드 버튼을 클릭합니다. <br>
-          3. 업로드 할 리뷰용 사진을 클릭한 뒤 확인 버튼을 눌러줍니다.<br>
+          2. 제목(30자 제한), 내용(1,000자 제한)을 기재하고 별점을 선택한 뒤, 리뷰 사진 칸의 < 파일 선택 > 버튼을 클릭합니다. <br>
+          3. 업로드 할 사진을 클릭한 뒤 확인 버튼을 눌러줍니다.<br>
           <a class="px-4 lead" style="text-decoration: none; color: red; font-size: 11pt;"> ❗️ 현재 Ol'reviews에서는 .jpg, .png, .jpeg의 사진만 업로드가 가능합니다.</a><br>
-          <a class="px-4 lead" style="text-decoration: none; color: red; font-size: 11pt;"> 기타 확장자의 경우 해당 확장자로 변환 후 업로드를 진행해주세요.</a><br>
+          <a class="px-4 lead" style="text-decoration: none; color: red; font-size: 11pt;"> 　기타 확장자의 경우 해당 확장자로 변환 후 업로드를 진행해주세요.</a><br>
           4. 리뷰 내용을 꼼꼼히 확인한 후 추가 변경사항이 없으시다면 submit 버튼을 눌러주시면, 정상 제출이 완료됩니다.<br>
           <br>
-          ❗️ 입력을 정상적으로 하였는데도 정상 제출이 안되거나, 오류가 발생하는 경우 상단 [ About Us ] 로 접속하셔서 메일을 주시면 도와드리겠습니다.
+          ❗️ 입력을 정상적으로 하였는데도 정상 제출이 안되거나, 오류가 발생하는 경우 업로드해주시는 사진 파일명을 영문으로 바꿔주시고 재시도해주세요.<br>
+          　만약 동일한 문제가 지속해서 발생한다면 상단<a class="a a1 px-2 fw-bold" href={% url 'aboutus' %} style="color: grey;">[ About Us ]⇱</a>로 접속하셔서 메일을 주시면 도와드리겠습니다.
       </p>
     </div>
 
     <div class="container">
-      <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
+      <div class="d-flex justify-content-center pt-5 mt-5 pb-1 mb-1>">
+        <img src="{% static 'Reviews/image/edit.jpg' %}" width="1000px" height=auto>
       </div>
+      <div class="d-flex justify-content-center pb-5 mb-5>">
+        <img src="{% static 'Reviews/image/deleteitem.jpg' %}" width="1000px" height=auto>
+      </div>     
     </div>
 
     <div class="d-flex text-muted pt-3">
@@ -251,8 +255,9 @@
           1. 로그인이 되어있는 상태에서 상단의 [ 다른 리뷰 보기 ] 버튼을 클릭합니다. <br>
           2. 내가 작성한 리뷰를 찾아 클릭하여 상세보기 페이지를 열어줍니다. <br>
           3. 우측 하단 수정 또는 삭제 버튼을 눌러 원하는 작업을 진행하여 줍니다.<br>
+          ※ 수정/삭제 버튼은 내가 작성한 게시글에서만 표시됩니다.<br>
           <br>
-          ❗️ 오류가 발생하는 경우 상단 [ About Us ] 로 접속하셔서 메일을 주시면 도와드리겠습니다.
+          ❗️ 오류가 발생하는 경우 상단<a class="a a1 px-2 fw-bold" href={% url 'aboutus' %} style="color: grey;">[ About Us ]⇱</a>로 접속하셔서 메일을 주시면 도와드리겠습니다.
       </p>
     </div>
     <a name="review">
@@ -263,7 +268,7 @@
     <h6 class="border-bottom py-2 my-2" style="font-size: 18pt;">3. 다른 리뷰 보기</h6>
 
     <div class="d-flex text-muted pt-3">
-      <p class="pb-3 px-3 mb-0 lh-sm border-bottom" style="font-size: 13pt;">
+      <p class="pb-3 px-3 mb-0 lh-sm" style="font-size: 13pt;">
         <strong class="d-block text-gray-dark"> [ 안내 ] </strong>
         다른 리뷰 보기는 회원가입 없이 이용이 가능합니다.
         </p>
@@ -271,7 +276,7 @@
 
     <div class="container">
       <div class="d-flex justify-content-center py-5 my-5">
-        <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="500px" height="500px" alt="이미지 설명">
+        <img src="{% static 'Reviews/image/filter.jpg' %}" width="1000px" height=auto>
       </div>
     </div>
 
@@ -281,7 +286,7 @@
         <br>
           1. 상단 메뉴바에서 [ 다른 리뷰 보기 ] 버튼을 클릭해줍니다. <br>
           2. 원하는 리뷰를 찾아 클릭하거나, filter 또는 sorting 기능을 사용하여 원하는 리뷰를 찾아 조회하여 클릭해줍니다. <br>
-          <a class="px-3" style="text-decoration: none; color: grey; font-size: 12pt;"> * filter, sorting 기능은 여러개를 중첩하여 사용이 가능합니다.</a><br>
+          <a class="px-3" style="text-decoration: none; color: grey; font-size: 12pt;"> * filter, sorting 기능은 여러개를 중첩하여 사용이 가능합니다.</a> <br>
       </p>
     </div>
     <a name="faq">
@@ -333,9 +338,9 @@
             <p class="px-2 lead" style="font-size:14pt;">저희 AI분석 기술은 최고의 정확성을 자랑하며 <br>
             지속적으로 업데이트되고 있습니다.<br>
             ------------------------------------------<br>
-          < 2023.06.29 기준 ><br>
-            제품 / 실사용사용구분(MobileNet): 약 __% <br>
-            제품오브젝트구분(YOLOV8): 약 __%</p>
+          < 2023.06.30 기준 ><br>
+            제품 / 실사용사진구분(CNN): 약 98.6% <br>
+            제품오브젝트구분(YOLOV8): 약 89.5%</p>
         </div>
       </div>
 
@@ -351,7 +356,7 @@
         <div class="text-bg-light d-inline-flex align-items-center justify-content-center flex-shrink-0 me-3"></div>
         <div>
           <p class="pb-2 border-bottom" style="font-weight:350; font-size:16pt">무료로 서비스를 이용할 수 있나요?</p>
-          <p class="px-2 lead" style="font-size:14pt;"> 현재 제공되고 있는 서비스는 무료로 이용이 가능하며, <br> 사무용품전문 기업들을 위한 유료구독 서비스를<br> 준비중에 있습니다. 조금만 기다려주세요!</p>
+          <p class="px-2 lead" style="font-size:14pt;"> 현재 제공되고 있는 서비스는 무료로 이용이 가능합니다.</p>
         </div>
       </div>
 
@@ -359,3 +364,5 @@
   </div>
 </main>
 {% endblock %}
+
+<!--20230629 update-->
