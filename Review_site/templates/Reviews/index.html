@@ -27,7 +27,7 @@
     <div class="p-4 border border-secondary rounded" style="background-color: #ACB8A288;">
       <div class="container-fluid" style='margin-bottom: 10px;'>
         <div class="row row-cols-5">
-          <div class="col dropdown">
+          <div class="col dropdown mt-3">
             사진타입
             <button class="btn btn-sm btn-outline-grey dropdown-toggle btn_filter mx-auto px-auto" type="button" id="ddb_domain" data-bs-toggle="dropdown" aria-expanded="false">{{domain}}</button>
             <ul class="dropdown-menu" aria-labelledby="ddb_domain">
@@ -37,7 +37,7 @@
             </ul>
           </div>
 
-          <div class="col dropdown">
+          <div class="col dropdown mt-3">
           제품
             <button class="btn btn-sm btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_product" data-bs-toggle="dropdown" aria-expanded="false">{{product}}</button>
             <ul class="dropdown-menu" aria-labelledby="ddb_product">
@@ -48,7 +48,7 @@
             </ul>
           </div>  
 
-          <div class="col dropdown">
+          <div class="col dropdown mt-3">
             별점
             <button class="btn btn-sm btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_star" data-bs-toggle="dropdown" aria-expanded="false">{{star}}</button>
             <ul class="dropdown-menu" aria-labelledby="ddb_star">
@@ -61,7 +61,7 @@
             </ul>
           </div>
 
-          <div class="col dropdown">
+          <div class="col dropdown mt-3">
             정렬
             <button class="btn btn-sm btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_sort" data-bs-toggle="dropdown" aria-expanded="false">{{sort}}</button>
             <ul class="dropdown-menu" aria-labelledby="ddb_sort">
@@ -71,8 +71,8 @@
             </ul>
           </div>
 
-          <div class="col">
-            <button id="filterButton" class="btn btn-olive mx-4 fw-bold py-auto" onclick="filter({{page}})" style="width:140px; border-color: darkslategrey; border-width: 1px;">조회하기</button>
+          <div class="col mt-1">
+            <button id="filterButton" class="btn btn-olive mx-4 fw-bold py-auto mt-2" onclick="filter({{page}})" style="width:140px; border-color: darkslategrey; border-width: 1px;">조회하기</button>
           </div>
         </div>
       </div>
@@ -175,3 +175,4 @@
 {% endblock script %}
 
 <!--20230629 update-->
+<!--20230703 update-->

@@ -88,14 +88,17 @@
           {% endif %}
     </form>
     <!--버튼 구현-->
-    <div class="d-grid gap-2 col-6 mx-auto" style='float: left; padding: 0 30px;'>
+
+    <div class="d-grid gap-0 col-6 mx-auto" style='float: left; padding: 0 10px;'>
       {% if review %}
         <a href={% url "detail" review.id %}>
       {% else %}
         <a href={% url "index" %}>
       {% endif %}
-        <button type="submit" class="btn btn-outline-secondary" style="width: 400px;">취소</button>
-      </a>
+          <div class="d-grid gap-0 col-12 mx-auto" style='float: left;'>
+            <button type="submit" class="btn btn-outline-secondary">취소</button>
+          </div>
+        </a>
     </div>
 </div>
 {% endblock content %}
@@ -109,3 +112,4 @@
 {% endblock script %}
 
 <!--20230629 update-->
+<!--20230703 update-->

@@ -27,7 +27,7 @@
   <div class="pt-5 mt-5 rounded-3 position-relative start-50 translate-middle-x text-center" style="width: 1200px; height: 500px; background-color:#ACB8A2;">
     <div class="container-fluid">
       <h1 class="fw-bold position-absolute bottom-0 start-50 translate-middle" style="font-size: 90pt">Ol'reviews</h1>
-      <p class="position-absolute bottom-0 start-50 translate-middle-x font-monospace" style="font-size: 17pt; letter-spacing:8pt;">국내 최초 사무용품 전문 리뷰사이트<br>사용자 매뉴얼</p>
+      <p class="position-absolute bottom-0 start-50 translate-middle-x font-monospace" style="font-size: 17pt; letter-spacing:8pt;">국내 최초 사무용품 전문 리뷰사이트<br>- 사용자 매뉴얼 -</p>
       </div>
   </div>
 
@@ -232,8 +232,13 @@
           3. 업로드 할 사진을 클릭한 뒤 확인 버튼을 눌러줍니다.<br>
           <a class="px-4 lead" style="text-decoration: none; color: red; font-size: 11pt;"> ❗️ 현재 Ol'reviews에서는 .jpg, .png, .jpeg의 사진만 업로드가 가능합니다.</a><br>
           <a class="px-4 lead" style="text-decoration: none; color: red; font-size: 11pt;"> 　기타 확장자의 경우 해당 확장자로 변환 후 업로드를 진행해주세요.</a><br>
-          4. 리뷰 내용을 꼼꼼히 확인한 후 추가 변경사항이 없으시다면 submit 버튼을 눌러주시면, 정상 제출이 완료됩니다.<br>
+          4. 리뷰 내용을 꼼꼼히 확인한 후 추가 변경사항이 없으시다면 [ 제출 ] 버튼을 눌러주시면, 정상 제출이 완료됩니다.<br>
           <br>
+          <a class="fw-bold" style="text-decoration: none; color: blue; font-size: 12pt;"> 
+           → 업로드 된 리뷰는 [ 다른 리뷰 보기 ]에서 확인하실 수 있으며,<br>
+          　업로드해주신 사진은 AI모델이 분석하여 리뷰 하단에 분류된 object를 태그해줍니다. (아래 예시사진)</a><br>
+          <img src="{% static 'Reviews/image/reviewdetail.jpg' %}" class="mb-5" width="600px" height=auto>
+          <br> 
           ❗️ 입력을 정상적으로 하였는데도 정상 제출이 안되거나, 오류가 발생하는 경우 업로드해주시는 사진 파일명을 영문으로 바꿔주시고 재시도해주세요.<br>
           　만약 동일한 문제가 지속해서 발생한다면 상단<a class="a a1 px-2 fw-bold" href={% url 'aboutus' %} style="color: grey;">[ About Us ]⇱</a>로 접속하셔서 메일을 주시면 도와드리겠습니다.
       </p>
