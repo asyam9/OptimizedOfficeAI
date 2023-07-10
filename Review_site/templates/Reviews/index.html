@@ -16,62 +16,64 @@
     <a class="nav-link btn btn-olive" aria-current="page" href={% url "index" %}>다른 리뷰 보기</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">About Us</a>
+    <a class="nav-link" href={% url "aboutus" %}>About Us</a>
   </li>
 {% endblock nav %}
 
 {% block content %}
-  <div class="container align-items-center" style='width: 90%; margin-top:100px'>
+  <div class="container align-items-center align-bottom" style='width: 90%; margin-top:100px'>
 
     <!-- START 드랍다운리스트 -->
-    <div class="container-fluid" style='margin-bottom: 10px'>
-      <div class="row row-cols-5">
-        <div class="col dropdown">
-          사진타입
-          <button class="btn btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_domain" data-bs-toggle="dropdown" aria-expanded="false">{{domain}}</button>
-          <ul class="dropdown-menu" aria-labelledby="ddb_domain">
-            <li><a class="dropdown-item" href="#" onclick="changeText('ddb_domain',this)">ALL</a></li>
-            <li><a class="dropdown-item" href="#" onclick="changeText('ddb_domain',this)">제품</a></li>
-            <li><a class="dropdown-item" href="#" onclick="changeText('ddb_domain',this)">실사용</a></li>
-          </ul>
-        </div>
+    <div class="p-4 border border-secondary rounded" style="background-color: #ACB8A288;">
+      <div class="container-fluid" style='margin-bottom: 10px;'>
+        <div class="row row-cols-5">
+          <div class="col dropdown mt-3">
+            사진타입
+            <button class="btn btn-sm btn-outline-grey dropdown-toggle btn_filter mx-auto px-auto" type="button" id="ddb_domain" data-bs-toggle="dropdown" aria-expanded="false">{{domain}}</button>
+            <ul class="dropdown-menu" aria-labelledby="ddb_domain">
+              <li><a class="dropdown-item" href="#" onclick="changeText('ddb_domain',this)">ALL</a></li>
+              <li><a class="dropdown-item" href="#" onclick="changeText('ddb_domain',this)">제품</a></li>
+              <li><a class="dropdown-item" href="#" onclick="changeText('ddb_domain',this)">실사용</a></li>
+            </ul>
+          </div>
 
-        <div class="col dropdown">
-        제품
-          <button class="btn btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_product" data-bs-toggle="dropdown" aria-expanded="false">{{product}}</button>
-          <ul class="dropdown-menu" aria-labelledby="ddb_product">
-            <li><a class="dropdown-item" href="#" onclick="changeText('ddb_product',this)">ALL</a></li>
-            {% for key, value in PRODUCT_MAPPING.items %}
-              <li><a class="dropdown-item" href="#" onclick="changeText('ddb_product',this)">{{value}}</a></li>
-            {% endfor %}
-          </ul>
-        </div>  
+          <div class="col dropdown mt-3">
+          제품
+            <button class="btn btn-sm btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_product" data-bs-toggle="dropdown" aria-expanded="false">{{product}}</button>
+            <ul class="dropdown-menu" aria-labelledby="ddb_product">
+              <li><a class="dropdown-item" href="#" onclick="changeText('ddb_product',this)">ALL</a></li>
+              {% for key, value in PRODUCT_MAPPING.items %}
+                <li><a class="dropdown-item" href="#" onclick="changeText('ddb_product',this)">{{value}}</a></li>
+              {% endfor %}
+            </ul>
+          </div>  
 
-        <div class="col dropdown">
-          별점
-          <button class="btn btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_star" data-bs-toggle="dropdown" aria-expanded="false">{{star}}</button>
-          <ul class="dropdown-menu" aria-labelledby="ddb_star">
-            <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">ALL</a></li>
-            <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐⭐⭐⭐⭐</a></li>
-            <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐⭐⭐⭐</a></li>
-            <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐⭐⭐</a></li>
-            <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐⭐</a></li>
-            <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐</a></li>
-          </ul>
-        </div>
+          <div class="col dropdown mt-3">
+            별점
+            <button class="btn btn-sm btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_star" data-bs-toggle="dropdown" aria-expanded="false">{{star}}</button>
+            <ul class="dropdown-menu" aria-labelledby="ddb_star">
+              <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">ALL</a></li>
+              <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐⭐⭐⭐⭐</a></li>
+              <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐⭐⭐⭐</a></li>
+              <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐⭐⭐</a></li>
+              <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐⭐</a></li>
+              <li><a class="dropdown-item" onclick="changeText('ddb_star',this)">⭐</a></li>
+            </ul>
+          </div>
 
-        <div class="col dropdown">
-          정렬
-          <button class="btn btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_sort" data-bs-toggle="dropdown" aria-expanded="false">{{sort}}</button>
-          <ul class="dropdown-menu" aria-labelledby="ddb_sort">
-            <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="date-new">최신등록순</a></li>
-            <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="likes-high">별점높은순</a></li>
-            <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="likes-high">별점낮은순</a></li>
-          </ul>
-        </div>
+          <div class="col dropdown mt-3">
+            정렬
+            <button class="btn btn-sm btn-outline-grey dropdown-toggle btn_filter" type="button" id="ddb_sort" data-bs-toggle="dropdown" aria-expanded="false">{{sort}}</button>
+            <ul class="dropdown-menu" aria-labelledby="ddb_sort">
+              <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="date-new">최신등록순</a></li>
+              <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="likes-high">별점높은순</a></li>
+              <li><a class="dropdown-item" onclick="changeText('ddb_sort',this)" value="likes-high">별점낮은순</a></li>
+            </ul>
+          </div>
 
-        <div class="col">
-          <button id="filterButton" class="btn btn-olive" onclick="filter({{page}})" style="width:130px;">조회하기</button>
+          <div class="col mt-1">
+            <button id="filterButton" class="btn btn-olive mx-4 fw-bold py-auto mt-2" onclick="filter({{page}})" style="width:140px; border-color: darkslategrey; border-width: 1px;">조회하기</button>
+          </div>
         </div>
       </div>
     </div>
@@ -171,3 +173,6 @@
 
 </script> 
 {% endblock script %}
+
+<!--20230629 update-->
+<!--20230703 update-->

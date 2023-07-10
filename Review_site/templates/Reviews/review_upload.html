@@ -28,7 +28,7 @@
     <a class="nav-link" href={% url "index" %}>다른 리뷰 보기</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="#">About Us</a>
+    <a class="nav-link" href={% url "aboutus" %}>About Us</a>
   </li>
 {% endblock nav %}
 
@@ -42,8 +42,7 @@
     {% endif %}
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
-        <h5>리뷰 작성하기</h5>
-        (* 표시 필수 입력)
+        <h4>리뷰 작성하기 <a class="align-bottom" style="text-decoration: none; color:red; font-size:11pt;">* 표시 필수 입력</a></h4>
         <hr>
 
         <table class="table">
@@ -89,18 +88,21 @@
           {% endif %}
     </form>
     <!--버튼 구현-->
-    <div class="d-grid gap-2 col-6 mx-auto" style='float: left; padding: 0 30px;'>
+
+    <div class="d-grid gap-0 col-6 mx-auto" style='float: left; padding: 0 10px;'>
       {% if review %}
         <a href={% url "detail" review.id %}>
       {% else %}
         <a href={% url "index" %}>
       {% endif %}
-        <button type="submit" class="btn btn-outline-secondary" style="width: 400px;">취소</button>
-      </a>
+          <div class="d-grid gap-0 col-12 mx-auto" style='float: left;'>
+            <button type="submit" class="btn btn-outline-secondary">취소</button>
+          </div>
+        </a>
     </div>
 </div>
-
 {% endblock content %}
+
 
 {% block script %}
 <script>
@@ -108,3 +110,6 @@
   textarea.placeholder = `최대 1000글자까지 입력 가능. 무분별한 욕설, 비난, 리뷰와 관계없는 내용 등의 경우 관리자에 의해 경고없이 삭제될 수 있습니다.`;
 </script>
 {% endblock script %}
+
+<!--20230629 update-->
+<!--20230703 update-->
